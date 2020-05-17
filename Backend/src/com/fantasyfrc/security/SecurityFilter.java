@@ -1,9 +1,8 @@
-package com.fantasyfrc.test.filter;
+package com.fantasyfrc.security;
 
-import com.fantasyfrc.test.bean.UserAccount;
-import com.fantasyfrc.test.request.UserRoleRequestWrapper;
-import com.fantasyfrc.test.utils.AppUtils;
-import com.fantasyfrc.test.utils.SecurityUtils;
+import com.fantasyfrc.user.UserAccount;
+import com.fantasyfrc.request.UserRoleRequestWrapper;
+import com.fantasyfrc.utils.AppUtils;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;

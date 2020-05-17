@@ -1,6 +1,6 @@
-package com.fantasyfrc.test.utils;
+package com.fantasyfrc.utils;
 
-import com.fantasyfrc.test.bean.UserAccount;
+import com.fantasyfrc.user.UserAccount;
 
 import java.util.HashMap;
 import java.util.Map;

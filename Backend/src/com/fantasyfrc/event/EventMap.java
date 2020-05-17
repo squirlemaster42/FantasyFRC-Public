@@ -1,8 +1,8 @@
 package com.fantasyfrc.event;
 
-import com.fantasyfrc.exceptions.InvalidMatchException;
 import com.fantasyfrc.scoring.MatchScorer;
 import com.fantasyfrc.scoring.exceptions.ElimMatchException;
+import com.fantasyfrc.scoring.exceptions.InvalidMatchException;
 import com.fantasyfrc.scoring.utils.jsonobjects.match.Match;
 import com.fantasyfrc.utils.Constants;
 import com.fantasyfrc.utils.Parser;

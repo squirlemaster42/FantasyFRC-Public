@@ -1,7 +1,7 @@
 package com.fantasyfrc.scoring;
 
-import com.fantasyfrc.exceptions.InvalidMatchException;
 import com.fantasyfrc.scoring.exceptions.ElimMatchException;
+import com.fantasyfrc.scoring.exceptions.InvalidMatchException;
 import com.fantasyfrc.scoring.utils.jsonobjects.match.Match;
 import com.fantasyfrc.scoring.utils.jsonobjects.match.ScoreBreakdown;
 import com.fantasyfrc.team.Team;

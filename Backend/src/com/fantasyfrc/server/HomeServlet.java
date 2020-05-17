@@ -1,4 +1,6 @@
-package com.fantasyfrc.test.servlet;
+package com.fantasyfrc.server;
+
+import com.fantasyfrc.utils.Constants;
 
 import java.io.IOException;
 
@@ -9,20 +11,25 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/userInfo")
-public class UserInfoServlet extends HttpServlet {
+@WebServlet({ "/", "/index" })
+public class HomeServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
-    public UserInfoServlet() {
+    public HomeServlet() {
         super();
+        //Load Configs
+        try {
+            Constants.getInstance().loadConfig("sql", "sqlconfig.properties");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        RequestDispatcher dispatcher //
-                = this.getServletContext().getRequestDispatcher("/WEB-INF/views/userInfoView.jsp");
+        RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/homeView.jsp");
 
         dispatcher.forward(request, response);
     }

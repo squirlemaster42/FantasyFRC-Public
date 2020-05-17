@@ -1,4 +1,4 @@
-package com.fantasyfrc.test.servlet;
+package com.fantasyfrc.server;
 
 import java.io.IOException;
 
@@ -9,11 +9,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/managerTask")
-public class ManagerTaskServlet extends HttpServlet {
+@WebServlet("/userInfo")
+public class UserInfoServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
-    public ManagerTaskServlet() {
+    public UserInfoServlet() {
         super();
     }
 
@@ -21,9 +21,7 @@ public class ManagerTaskServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        RequestDispatcher dispatcher //
-                = this.getServletContext()//
-                .getRequestDispatcher("/WEB-INF/views/managerTaskView.jsp");
+        RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/userInfoView.jsp");
 
         dispatcher.forward(request, response);
     }

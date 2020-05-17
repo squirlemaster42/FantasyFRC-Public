@@ -1,4 +1,4 @@
-package com.fantasyfrc.test.bean;
+package com.fantasyfrc.user;
 
 import java.util.ArrayList;
 import java.util.Arrays;

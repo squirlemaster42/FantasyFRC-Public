@@ -1,6 +1,7 @@
-package com.fantasyfrc.test.utils;
+package com.fantasyfrc.security;
 
-import com.fantasyfrc.test.config.SecurityConfig;
+import com.fantasyfrc.security.SecurityConfig;
+import com.fantasyfrc.utils.UrlPatternUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;

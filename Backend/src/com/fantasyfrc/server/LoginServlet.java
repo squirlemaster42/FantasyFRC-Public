@@ -1,8 +1,8 @@
-package com.fantasyfrc.test.servlet;
+package com.fantasyfrc.server;
 
-import com.fantasyfrc.test.bean.UserAccount;
-import com.fantasyfrc.test.utils.AppUtils;
-import com.fantasyfrc.test.utils.DataDAO;
+import com.fantasyfrc.user.UserAccount;
+import com.fantasyfrc.utils.AppUtils;
+import com.fantasyfrc.user.UserDAO;
 
 import java.io.IOException;
 
@@ -25,8 +25,7 @@ public class LoginServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        RequestDispatcher dispatcher //
-                = this.getServletContext().getRequestDispatcher("/WEB-INF/views/loginView.jsp");
+        RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/loginView.jsp");
 
         dispatcher.forward(request, response);
     }
@@ -37,15 +36,14 @@ public class LoginServlet extends HttpServlet {
 
         String userName = request.getParameter("userName");
         String password = request.getParameter("password");
-        UserAccount userAccount = DataDAO.findUser(userName, password);
+        UserAccount userAccount = UserDAO.findUser(userName, password);
 
         if (userAccount == null) {
             String errorMessage = "Invalid userName or Password";
 
             request.setAttribute("errorMessage", errorMessage);
 
-            RequestDispatcher dispatcher //
-                    = this.getServletContext().getRequestDispatcher("/WEB-INF/views/loginView.jsp");
+            RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/loginView.jsp");
 
             dispatcher.forward(request, response);
             return;
@@ -53,7 +51,6 @@ public class LoginServlet extends HttpServlet {
 
         AppUtils.storeLoginedUser(request.getSession(), userAccount);
 
-        //
         int redirectId = -1;
         try {
             redirectId = Integer.parseInt(request.getParameter("redirectId"));

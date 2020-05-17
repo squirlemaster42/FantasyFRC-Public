@@ -1,7 +1,6 @@
 package com.fantasyfrc.user;
 
-import com.fantasyfrc.login.LoginManager;
-import com.fantasyfrc.login.UserDatabaseManager;
+import com.fantasyfrc.utils.LoginManager;
 import com.fantasyfrc.utils.Constants;
 
 import java.util.ArrayList;

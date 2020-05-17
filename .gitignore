@@ -27,3 +27,4 @@ Backend/out/*
 *.iml
 *.conf
 *.conf
+*.properties

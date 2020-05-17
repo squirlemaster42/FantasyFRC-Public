@@ -36,11 +36,6 @@
             </table>
         </form>
     </div>
-
-    <p style="color:blue;">Login with:</p>
-
-    employee1/123 <br>
-    manager1/123
 </div>
 </body>
 </html>

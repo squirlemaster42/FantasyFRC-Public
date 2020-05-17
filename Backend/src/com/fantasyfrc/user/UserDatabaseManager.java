@@ -1,8 +1,6 @@
-package com.fantasyfrc.login;
+package com.fantasyfrc.user;
 
-import com.fantasyfrc.user.User;
-import jdk.jfr.StackTrace;
-import org.junit.Test;
+import com.fantasyfrc.utils.Constants;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -23,9 +21,9 @@ public class UserDatabaseManager {
         return instance;
     }
 
-    private final String username = "root";
-    private final String password = "password";
-    private final String url = "jdbc:mysql://localhost:3306/users";
+    private final String username = Constants.getInstance().getConfig("sql").getProperty("username");
+    private final String password = Constants.getInstance().getConfig("sql").getProperty("password");
+    private final String url = Constants.getInstance().getConfig("sql").getProperty("url");
 
     private UserDatabaseManager() {
         getCon();

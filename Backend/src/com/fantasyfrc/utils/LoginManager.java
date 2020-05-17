@@ -1,5 +1,6 @@
-package com.fantasyfrc.login;
+package com.fantasyfrc.utils;
 
+import com.fantasyfrc.user.UserDatabaseManager;
 import com.fantasyfrc.utils.PasswordStorage;
 
 public class LoginManager {

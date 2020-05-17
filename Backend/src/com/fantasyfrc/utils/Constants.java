@@ -5,10 +5,12 @@ import com.squareup.okhttp.OkHttpClient;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Scanner;
+import java.util.Properties;
 
 public class Constants {
 
@@ -19,7 +21,7 @@ public class Constants {
 
     private static Constants instance;
 
-    //Stores Blue Alliance Auth key
+    //Stores Blue Alliance Auth key TODO Change to a config
     private String TBAAuthKey;
 
     private final OkHttpClient client;
@@ -33,16 +35,16 @@ public class Constants {
     private final int[][] allianceSelectionScoringGuide;
 
     //Store configs loaded from .conf files
-    private final Map<String, String> confMap;
+    private final Map<String, Properties> confMap;
 
-    public static Constants getInstance(){
-        if(instance == null) {
+    public static Constants getInstance() {
+        if (instance == null) {
             instance = new Constants();
         }
         return instance;
     }
 
-    private Constants(){
+    private Constants() {
         //Adds event strings to champ event list
         this.champGameStrings = new ArrayList<>();
         champGameStrings.add(year + "carv");
@@ -76,7 +78,7 @@ public class Constants {
         confMap = new HashMap<>();
     }
 
-    public int[][] getAllianceSelectionScoringGuide(){
+    public int[][] getAllianceSelectionScoringGuide() {
         return this.allianceSelectionScoringGuide;
     }
 
@@ -88,43 +90,42 @@ public class Constants {
         return gson;
     }
 
-    public ArrayList<String> getChampGameStrings(){
+    public ArrayList<String> getChampGameStrings() {
         return this.champGameStrings;
     }
 
-    public String getTBAAuthKey(){
+    public String getTBAAuthKey() {
         return this.TBAAuthKey;
     }
 
-    public File getPathToCSV(){
+    public File getPathToCSV() {
         return pathToCSV;
     }
 
-    public void setPathToCSV(File file){
+    public void setPathToCSV(File file) {
         this.pathToCSV = file;
     }
 
-    public void setTBAAuthKey(String key){
+    public void setTBAAuthKey(String key) {
         this.TBAAuthKey = key;
     }
 
-    public String getConfig(String conf){
+    public Properties getConfig(String conf) {
         return confMap.get(conf);
     }
 
     //Config format is name: config
-    public void loadConfig(final File confFile){
-        try {
-            Scanner scanner = new Scanner(confFile);
-            while (scanner.hasNextLine()){
-                String line = scanner.nextLine();
-                line = line.replaceAll(":", "");
-                String[] splitLine = line.split(" ");
-                confMap.put(splitLine[0], splitLine[1]);
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+    public void loadConfig(final String propName, final String confFile) throws IOException {
+        Properties prop = new Properties();
+        InputStream inputStream = getClass().getClassLoader().getResourceAsStream(confFile);
+
+        if (inputStream != null) {
+            prop.load(inputStream);
+        } else {
+            throw new FileNotFoundException("property file '" + confFile + "' not found in classpath");
         }
+
+        confMap.put(propName, prop);
     }
 
 }

@@ -1,4 +1,4 @@
-package com.fantasyfrc.test.utils;
+package com.fantasyfrc.utils;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletRegistration;

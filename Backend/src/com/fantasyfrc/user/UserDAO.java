@@ -1,14 +1,11 @@
-package com.fantasyfrc.test.utils;
+package com.fantasyfrc.user;
 
-import com.fantasyfrc.test.bean.UserAccount;
-import com.fantasyfrc.test.config.SecurityConfig;
-import com.fantasyfrc.user.ActiveUsers;
-import com.fantasyfrc.user.User;
+import com.fantasyfrc.security.SecurityConfig;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class DataDAO {
+public class UserDAO {
 
     private static final Map<String, UserAccount> mapUsers = new HashMap<>();
 
@@ -39,7 +36,7 @@ public class DataDAO {
 
     public static UserAccount findUser(String userName, String password) {
         if(User.createUser(userName, password)){
-            return new UserAccount(ActiveUsers.getInstance().getUser(userName).getUsername(), password, UserAccount.GENDER_MALE, SecurityConfig.ROLE_MANAGER);
+            return new UserAccount(ActiveUsers.getInstance().getUser(userName).getUsername(), password, UserAccount.GENDER_MALE, SecurityConfig.ROLE_EMPLOYEE, SecurityConfig.ROLE_MANAGER);
         }
         return null;
     }

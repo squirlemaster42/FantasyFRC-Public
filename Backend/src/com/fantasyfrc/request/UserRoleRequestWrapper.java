@@ -1,4 +1,4 @@
-package com.fantasyfrc.test.request;
+package com.fantasyfrc.request;
 
 import java.security.Principal;
 import java.util.List;
@@ -46,7 +46,6 @@ public class UserRoleRequestWrapper extends HttpServletRequestWrapper {
             return realRequest.getUserPrincipal();
         }
 
-        // Make an anonymous implementation to just return our user
         return () -> user;
     }
 }

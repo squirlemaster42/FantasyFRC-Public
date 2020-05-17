@@ -1,4 +1,4 @@
-package com.fantasyfrc.test.config;
+package com.fantasyfrc.security;
 
 import java.util.ArrayList;
 import java.util.HashMap;
