@@ -4,10 +4,15 @@ import com.google.gson.Gson;
 import com.squareup.okhttp.OkHttpClient;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
 
 public class Constants {
 
+    //Basic Constants
     public static final int DRAFT_SIZE = 8;
     public static final int SERVER_PORT = 0;
     private static final int year = 2019; //TODO update for 2020
@@ -26,6 +31,9 @@ public class Constants {
 
     //Stores scores for alliance selection
     private final int[][] allianceSelectionScoringGuide;
+
+    //Store configs loaded from .conf files
+    private final Map<String, String> confMap;
 
     public static Constants getInstance(){
         if(instance == null) {
@@ -64,6 +72,8 @@ public class Constants {
                 {18, 14, 10, 6},
                 {17, 13, 9, 5}
         };
+
+        confMap = new HashMap<>();
     }
 
     public int[][] getAllianceSelectionScoringGuide(){
@@ -96,6 +106,26 @@ public class Constants {
 
     public void setTBAAuthKey(String key){
         this.TBAAuthKey = key;
+    }
+
+    public String getConfig(String conf){
+        return confMap.get(conf);
+    }
+
+    //Config format is name: config TODO Test
+    public void loadConfig(final File confFile){
+        try {
+            Scanner scanner = new Scanner(confFile);
+            String line = scanner.nextLine();
+            while (line != null){
+                line = line.replaceAll(":", "");
+                String[] splitLine = line.split(" ");
+                confMap.put(splitLine[0], splitLine[1]);
+                line = scanner.nextLine();
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
 }
