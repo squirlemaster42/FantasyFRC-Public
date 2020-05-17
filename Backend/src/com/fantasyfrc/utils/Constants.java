@@ -112,16 +112,15 @@ public class Constants {
         return confMap.get(conf);
     }
 
-    //Config format is name: config TODO Test
+    //Config format is name: config
     public void loadConfig(final File confFile){
         try {
             Scanner scanner = new Scanner(confFile);
-            String line = scanner.nextLine();
-            while (line != null){
+            while (scanner.hasNextLine()){
+                String line = scanner.nextLine();
                 line = line.replaceAll(":", "");
                 String[] splitLine = line.split(" ");
                 confMap.put(splitLine[0], splitLine[1]);
-                line = scanner.nextLine();
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
