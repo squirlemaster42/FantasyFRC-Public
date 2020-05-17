@@ -1,14 +1,14 @@
 package com.fantasyfrc.login;
 
-import com.fantasyfrc.draft.Draft;
 import com.fantasyfrc.user.User;
+import jdk.jfr.StackTrace;
+import org.junit.Test;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.Objects;
 
 //TODO Refactor this
@@ -40,12 +40,12 @@ public class UserDatabaseManager {
             Class.forName("com.mysql.cj.jdbc.Driver");
             return DriverManager.getConnection(url, username, password);
         }catch(Exception ex) {
+            ex.printStackTrace();
             System.out.println(ex.getMessage());
             System.out.println("couldn't connect!");
         }
         return null;
     }
-
 
     public boolean doesUserExists (final String username){
         Statement statement = null;

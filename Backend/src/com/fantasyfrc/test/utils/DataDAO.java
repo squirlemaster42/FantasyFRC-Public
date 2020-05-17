@@ -2,6 +2,8 @@ package com.fantasyfrc.test.utils;
 
 import com.fantasyfrc.test.bean.UserAccount;
 import com.fantasyfrc.test.config.SecurityConfig;
+import com.fantasyfrc.user.ActiveUsers;
+import com.fantasyfrc.user.User;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -14,6 +16,7 @@ public class DataDAO {
         initUsers();
     }
 
+    //TODO Convert to use database
     private static void initUsers(){
         // This user has a role as EMPLOYEE.
         UserAccount emp = new UserAccount("employee1", "123", UserAccount.GENDER_MALE, SecurityConfig.ROLE_EMPLOYEE);
@@ -26,10 +29,17 @@ public class DataDAO {
     }
 
     // Find a User by userName and password.
+//    public static UserAccount findUser(String userName, String password) {
+//        UserAccount u = mapUsers.get(userName);
+//        if (u != null && u.getPassword().equals(password)) {
+//            return u;
+//        }
+//        return null;
+//    }
+
     public static UserAccount findUser(String userName, String password) {
-        UserAccount u = mapUsers.get(userName);
-        if (u != null && u.getPassword().equals(password)) {
-            return u;
+        if(User.createUser(userName, password)){
+            return new UserAccount(ActiveUsers.getInstance().getUser(userName).getUsername(), password, UserAccount.GENDER_MALE, SecurityConfig.ROLE_MANAGER);
         }
         return null;
     }

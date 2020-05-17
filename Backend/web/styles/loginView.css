@@ -1,0 +1,14 @@
+div.form {
+    display: block;
+    text-align: center;
+}
+form {
+    display: inline-block;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+}
+
+div.login{
+    text-align: center;
+}
