@@ -25,3 +25,5 @@ Backend/.idea/*
 .idea/*
 Backend/out/*
 *.iml
+*.conf
+*.conf
