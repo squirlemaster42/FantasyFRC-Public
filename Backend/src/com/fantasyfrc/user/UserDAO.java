@@ -13,7 +13,6 @@ public class UserDAO {
         initUsers();
     }
 
-    //TODO Convert to use database
     private static void initUsers(){
         // This user has a role as EMPLOYEE.
         UserAccount emp = new UserAccount("employee1", "123", UserAccount.GENDER_MALE, SecurityConfig.ROLE_EMPLOYEE);
