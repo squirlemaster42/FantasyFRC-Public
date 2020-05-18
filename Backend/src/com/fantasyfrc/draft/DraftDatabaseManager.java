@@ -1,5 +1,8 @@
 package com.fantasyfrc.draft;
 
+import com.fantasyfrc.utils.Constants;
+import com.fantasyfrc.utils.DataProvider;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -21,8 +24,10 @@ public class DraftDatabaseManager {
     private final String username = "root";
     private final String password = "password";
     private final String url = "jdbc:mysql://localhost:3306/users";
+    private final DataProvider<String, Draft> dataProvider;
 
     private DraftDatabaseManager(){
+        dataProvider = new DraftProvider();
         getCon();
     }
 
@@ -61,17 +66,6 @@ public class DraftDatabaseManager {
         return "";
     }
 
-    void loadDrafts(final Statement statement, final String sqlString){
-        try {
-            ResultSet resultSet = statement.executeQuery(sqlString);
-            while(resultSet.next()){
-                new Draft(resultSet.getString("id"));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
     void write(final Statement statement, final String sqlString){
         try {
             statement.executeUpdate(sqlString);
@@ -86,6 +80,7 @@ public class DraftDatabaseManager {
         }
     }
 
+    //TODO Test
     boolean draftExists(final String id){
         try {
             Statement statement = Objects.requireNonNull(DraftDatabaseManager.getInstance().getCon()).createStatement();
@@ -94,6 +89,41 @@ public class DraftDatabaseManager {
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
+        }
+    }
+
+    void addDraft(Draft d) throws SQLException {
+        Statement statement = Objects.requireNonNull(DraftDatabaseManager.getInstance().getCon()).createStatement();
+        String sqlStr = String.format("insert into drafts values ('%s', '%s');", d.getID(), d.genJSONStr());
+        DraftDatabaseManager.getInstance().write(statement, sqlStr);
+    }
+
+    void updateDatabase(Draft d){
+        try {
+            Statement statement = Objects.requireNonNull(DraftDatabaseManager.getInstance().getCon()).createStatement();
+            String sqlStr = String.format("update drafts set drafts = '%s' where id = '%s';", d.genJSONStr(), d.getID());
+            DraftDatabaseManager.getInstance().write(statement, sqlStr);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public DataProvider<String, Draft> getDataProvider() {
+        return dataProvider;
+    }
+
+    private static class DraftProvider implements DataProvider<String, Draft>{
+
+        @Override
+        public Draft get(String key) {
+            try {
+                Statement statement = Objects.requireNonNull(DraftDatabaseManager.getInstance().getCon()).createStatement();
+                String result = DraftDatabaseManager.getInstance().read(statement, String.format("select * from drafts where id = \"%s\";", key));
+                return Constants.getInstance().getGson().fromJson(result, Draft.class);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            return null;
         }
     }
 }

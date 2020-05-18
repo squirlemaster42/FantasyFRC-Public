@@ -3,7 +3,7 @@ package com.fantasyfrc.utils;
 import java.util.HashMap;
 import java.util.Map;
 
-public class LRUCache<K, V> implements Cache<K, V>{
+public final class LRUCache<K, V> implements Cache<K, V>{
 
     private final DataProvider<K, V> provider;
     private final LinkedHashMap<K, V> backingStore;
@@ -52,7 +52,7 @@ public class LRUCache<K, V> implements Cache<K, V>{
          * @param key The key to store the value under
          * @param value The value to be stored
          */
-        void put(final K key, final V value) {
+        synchronized void put(final K key, final V value) {
             _size++; //Increments size
             Node<K, V> node = new Node<>(key, value); //Constructs a node with the input data
             if (_head == null) { //Sets head and tail to null
@@ -82,7 +82,7 @@ public class LRUCache<K, V> implements Cache<K, V>{
          * Moves a specified node to the head of the linked list
          * @param node The node to move
          */
-        private void moveToHead(final Node<K, V> node) {
+        private synchronized void moveToHead(final Node<K, V> node) {
             if(node == _head){ //If the node is already at the head do nothing
                 //The node is already at the head of the LinkedList
             }else if (node == _tail && _size != 1) { //Move the node to the head if the node is at the tail
@@ -104,7 +104,7 @@ public class LRUCache<K, V> implements Cache<K, V>{
         /**
          * Removed the tail of the LinkedList. This was always be the value that was used least recently
          */
-        void evictTail() {
+        synchronized void evictTail() {
             if (_size == 1) { //When the size is 1, remove head, sets head and tail to null and decrease the size by 1
                 _map.remove(_head.key);
                 _head = null;
