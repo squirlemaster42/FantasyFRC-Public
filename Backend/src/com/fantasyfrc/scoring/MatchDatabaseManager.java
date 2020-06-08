@@ -1,6 +1,10 @@
 package com.fantasyfrc.scoring;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 public class MatchDatabaseManager {
 
@@ -18,6 +22,7 @@ public class MatchDatabaseManager {
     private final String username = "root";
     private final String password = "password";
     private final String url = "jdbc:mysql://localhost:3306/users";
+    record ScoreRecord(int redScore, int blueScore){}
 
     private MatchDatabaseManager(){}
 
@@ -33,19 +38,20 @@ public class MatchDatabaseManager {
     }
 
     //TODO Figure out how to make this better, int[] is kinda ugly
-    public int[] getScore(final String matchId){
+    public ScoreRecord getScore(final String matchId){
         try(Statement statement = getCon().createStatement()){
             ResultSet rs = statement.executeQuery(String.format("SELECT * from matches WHERE id = '%s'", matchId));
             if(!rs.next()){
-                return new int[]{-1, -1};
+                return new ScoreRecord(-1, -1);
             }else{
-                return new int[]{rs.getInt("red_score"), rs.getInt("blue_score")};
+                //TODO Convert
+                return new ScoreRecord(rs.getInt("red_score"), rs.getInt("blue_score"));
             }
         }catch(SQLException e){
             e.printStackTrace();
         }
 
-        return new int[]{-1, -1};
+        return new ScoreRecord(-1, -1);
     }
 
     public void updateScore(final String matchId, final int redScore, final int blueScore){

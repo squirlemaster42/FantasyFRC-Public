@@ -21,9 +21,6 @@ public class Constants {
 
     private static Constants instance;
 
-    //Stores Blue Alliance Auth key TODO Change to a config
-    private String TBAAuthKey;
-
     private final OkHttpClient client;
     private final Gson gson;
 
@@ -95,7 +92,7 @@ public class Constants {
     }
 
     public String getTBAAuthKey() {
-        return this.TBAAuthKey;
+        return confMap.get("tba").getProperty("tbakey");
     }
 
     public File getPathToCSV() {
@@ -104,10 +101,6 @@ public class Constants {
 
     public void setPathToCSV(File file) {
         this.pathToCSV = file;
-    }
-
-    public void setTBAAuthKey(String key) {
-        this.TBAAuthKey = key;
     }
 
     public Properties getConfig(String conf) {

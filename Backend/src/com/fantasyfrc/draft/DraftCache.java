@@ -16,7 +16,6 @@ public final class DraftCache {
     private final LRUCache<String, Draft> cache;
 
     private DraftCache(){
-        //TODO Determine starting capacity
         cache = new LRUCache<>(DraftDatabaseManager.getInstance().getDataProvider(), 1000);
     }
 
