@@ -21,12 +21,13 @@ public class DraftDatabaseManager {
         return instance;
     }
 
-    private final String username = "root";
-    private final String password = "password";
-    private final String url = "jdbc:mysql://localhost:3306/users";
+    private final String username, password, url;
     private final DataProvider<String, Draft> dataProvider;
 
     private DraftDatabaseManager(){
+        username = Constants.getInstance().getConfig("sql").getProperty("username");
+        password = Constants.getInstance().getConfig("sql").getProperty("password");
+        url = Constants.getInstance().getConfig("sql").getProperty("url");
         dataProvider = new DraftProvider();
         getCon();
     }
@@ -94,15 +95,21 @@ public class DraftDatabaseManager {
 
     void addDraft(Draft d) throws SQLException {
         Statement statement = Objects.requireNonNull(DraftDatabaseManager.getInstance().getCon()).createStatement();
-        String sqlStr = String.format("insert into drafts values ('%s', '%s');", d.getID(), d.genJSONStr());
+        String sqlStr = String.format("insert into drafts values ('%s', '%s');", d.getId(), d.genJSONStr());
         DraftDatabaseManager.getInstance().write(statement, sqlStr);
     }
 
     void updateDatabase(Draft d){
         try {
-            Statement statement = Objects.requireNonNull(DraftDatabaseManager.getInstance().getCon()).createStatement();
-            String sqlStr = String.format("update drafts set drafts = '%s' where id = '%s';", d.genJSONStr(), d.getID());
-            DraftDatabaseManager.getInstance().write(statement, sqlStr);
+            if(draftExists(d.getId())){
+                Statement statement = Objects.requireNonNull(DraftDatabaseManager.getInstance().getCon()).createStatement();
+                String sqlStr = String.format("update drafts set drafts = '%s' where id = '%s';", d.genJSONStr(), d.getId());
+                DraftDatabaseManager.getInstance().write(statement, sqlStr);
+            }else{
+                Statement statement = Objects.requireNonNull(DraftDatabaseManager.getInstance().getCon()).createStatement();
+                String sqlStr = String.format("insert into drafts values ('%s', '%s');", d.getId(), d.genJSONStr());
+                DraftDatabaseManager.getInstance().write(statement, sqlStr);
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }

@@ -1,5 +1,7 @@
 package com.fantasyfrc.team;
 
+import com.fantasyfrc.utils.Constants;
+
 import java.sql.*;
 
 public class TeamDatabaseManager {
@@ -15,13 +17,14 @@ public class TeamDatabaseManager {
         return instance;
     }
 
-    //TODO Centralize SQL information
     //SQL information
-    private final String username = "root";
-    private final String password = "password";
-    private final String url = "jdbc:mysql://localhost:3306/users";
+    private final String username, password, url;
 
-    private TeamDatabaseManager(){}
+    private TeamDatabaseManager(){
+        username = Constants.getInstance().getConfig("sql").getProperty("username");
+        password = Constants.getInstance().getConfig("sql").getProperty("password");
+        url = Constants.getInstance().getConfig("sql").getProperty("url");
+    }
 
     Connection getCon(){
         try{

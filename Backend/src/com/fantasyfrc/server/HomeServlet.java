@@ -17,13 +17,7 @@ public class HomeServlet extends HttpServlet {
 
     public HomeServlet() {
         super();
-        //Load Configs
-        try {
-            Constants.getInstance().loadConfig("sql", "sqlconfig.properties");
-            Constants.getInstance().loadConfig("tba", "tbaconfig.properties");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
     }
 
     @Override

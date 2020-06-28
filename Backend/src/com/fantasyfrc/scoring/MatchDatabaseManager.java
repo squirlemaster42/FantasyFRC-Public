@@ -1,5 +1,7 @@
 package com.fantasyfrc.scoring;
 
+import com.fantasyfrc.utils.Constants;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -17,14 +19,15 @@ public class MatchDatabaseManager {
         return instance;
     }
 
-    //TODO Centralize SQL information
     //SQL information
-    private final String username = "root";
-    private final String password = "password";
-    private final String url = "jdbc:mysql://localhost:3306/users";
+    private final String username, password, url;
     record ScoreRecord(int redScore, int blueScore){}
 
-    private MatchDatabaseManager(){}
+    private MatchDatabaseManager(){
+        username = Constants.getInstance().getConfig("sql").getProperty("username");
+        password = Constants.getInstance().getConfig("sql").getProperty("password");
+        url = Constants.getInstance().getConfig("sql").getProperty("url");
+    }
 
     Connection getCon(){
         try{
@@ -37,14 +40,12 @@ public class MatchDatabaseManager {
         return null;
     }
 
-    //TODO Figure out how to make this better, int[] is kinda ugly
     public ScoreRecord getScore(final String matchId){
         try(Statement statement = getCon().createStatement()){
             ResultSet rs = statement.executeQuery(String.format("SELECT * from matches WHERE id = '%s'", matchId));
             if(!rs.next()){
                 return new ScoreRecord(-1, -1);
             }else{
-                //TODO Convert
                 return new ScoreRecord(rs.getInt("red_score"), rs.getInt("blue_score"));
             }
         }catch(SQLException e){

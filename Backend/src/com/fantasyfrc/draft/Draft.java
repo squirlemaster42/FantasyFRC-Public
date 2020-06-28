@@ -9,10 +9,12 @@ import java.util.Collections;
 public class Draft {
 
     private final String id;
-    private String[] pickOrder;
-    private Pick[] picks = new Pick[64];
+    private final Pick[] picks = new Pick[64];
     private long lastPickTime = Integer.MIN_VALUE;
     private int lastPick = -1;
+    private String[] players;
+
+
 
     /**
      * Creates draft from a list of players
@@ -21,34 +23,23 @@ public class Draft {
      * @param players The players in the draft
      */
     //TODO Verify ID is unique prior to creating draft
-    Draft(String id, String[] players) {
+    public Draft(String id, String[] players) {
         this.id = id;
         Collections.shuffle(Arrays.asList(players));
-        pickOrder = players;
-        int pos = 0;
-        for (int i = 0; i < picks.length / 16; i++) {
-            for (int j = 0; j < pickOrder.length; j++) {
-                picks[pos] = new Pick(pickOrder[j], this);
-                pos++;
-            }
-            for (int j = pickOrder.length - 1; j >= 0; j--) {
-                picks[pos] = new Pick(pickOrder[j], this);
-                pos++;
-            }
+        this.players = players;
+        for (int i = 0; i < picks.length; i++) {
+            picks[i] = new Pick(players[i % 8], this);
         }
 
         picks[lastPick + 1].unlock();
 
-        try {
-            DraftDatabaseManager.getInstance().addDraft(this);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        DraftDatabaseManager.getInstance().updateDatabase(this);
     }
 
     //TODO Figure out how to handle invalid picks
     //TODO Needs to check that a team has not already been picked
     //TODO Check that team is at event
+    //TODO Remove username field
     public void makePick(final String username, final String teamID) {
         System.out.println("Pick of: " + teamID + " from: " + username);
         //&& picks[lastPick + 1].getUser().equals(username)
@@ -65,8 +56,16 @@ public class Draft {
         return Constants.getInstance().getGson().toJson(this);
     }
 
-    public String getID() {
+    public String getId() {
         return id;
+    }
+
+    public String[] getPlayers(){
+        return players;
+    }
+
+    public Pick[] getPicks() {
+        return picks;
     }
 
     @Override

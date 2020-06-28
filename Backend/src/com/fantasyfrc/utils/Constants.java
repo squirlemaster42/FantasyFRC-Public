@@ -73,6 +73,14 @@ public class Constants {
         };
 
         confMap = new HashMap<>();
+
+        //Load Configs
+        try {
+            loadConfig("sql", "sqlconfig.properties");
+            loadConfig("tba", "tbaconfig.properties");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public int[][] getAllianceSelectionScoringGuide() {

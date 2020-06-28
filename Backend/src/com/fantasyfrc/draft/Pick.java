@@ -44,9 +44,6 @@ public class Pick {
         return draft;
     }
 
-    void setDraft(final Draft draft){
-        this.draft = draft;
-    }
 
     @Override
     public String toString() {

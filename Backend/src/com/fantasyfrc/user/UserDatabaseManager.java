@@ -21,11 +21,13 @@ public class UserDatabaseManager {
         return instance;
     }
 
-    private final String username = Constants.getInstance().getConfig("sql").getProperty("username");
-    private final String password = Constants.getInstance().getConfig("sql").getProperty("password");
-    private final String url = Constants.getInstance().getConfig("sql").getProperty("url");
+    //TODO Fix this
+    private final String username, password, url;
 
     private UserDatabaseManager() {
+        username = Constants.getInstance().getConfig("sql").getProperty("username");
+        password = Constants.getInstance().getConfig("sql").getProperty("password");
+        url = Constants.getInstance().getConfig("sql").getProperty("url");
         getCon();
     }
 
@@ -113,10 +115,9 @@ public class UserDatabaseManager {
         }
     }
 
-    private class SQLReadObject{
+    private static class SQLReadObject{
 
         private final String sqlString;
-        private String password;
 
         SQLReadObject(final String username){
             sqlString = "SELECT password from users WHERE username = '" + username + "'";
@@ -126,8 +127,7 @@ public class UserDatabaseManager {
             try {
                 ResultSet result = statement.executeQuery(sqlString);
                 if(result.first()){
-                    password = result.getString("password");
-                    return password;
+                    return result.getString("password");
                 }
                 return null;
             } catch (SQLException e) {
@@ -143,7 +143,7 @@ public class UserDatabaseManager {
         }
     }
 
-    private class SQLWriteObject{
+    private static class SQLWriteObject{
 
         private final String sqlString;
 

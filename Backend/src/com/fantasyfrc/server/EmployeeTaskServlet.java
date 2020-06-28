@@ -1,5 +1,7 @@
 package com.fantasyfrc.server;
 
+import com.fantasyfrc.draft.Draft;
+
 import java.io.IOException;
 
 import javax.servlet.RequestDispatcher;
@@ -32,6 +34,12 @@ public class EmployeeTaskServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        Draft d = (Draft) request.getSession().getAttribute("activeDraft");
+
+        System.out.println(d.getId());
+        //TODO Get next pick
+        System.out.println(request.getParameter("pick1"));
+        d.makePick("test", request.getParameter("pick1"));
         doGet(request, response);
     }
 
