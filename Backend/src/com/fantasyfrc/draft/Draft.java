@@ -48,7 +48,7 @@ public class Draft {
             lastPick++;
             picks[lastPick + 1].unlock();
             lastPickTime = System.nanoTime();
-            DraftDatabaseManager.getInstance().updateDatabase(this);
+            //DraftDatabaseManager.getInstance().updateDatabase(this);
         }
     }
 
@@ -58,6 +58,10 @@ public class Draft {
 
     public String getId() {
         return id;
+    }
+
+    public int getLastPick(){
+        return lastPick;
     }
 
     public String[] getPlayers(){

@@ -37,9 +37,9 @@ public class EmployeeTaskServlet extends HttpServlet {
         Draft d = (Draft) request.getSession().getAttribute("activeDraft");
 
         System.out.println(d.getId());
-        //TODO Get next pick
-        System.out.println(request.getParameter("pick1"));
-        d.makePick("test", request.getParameter("pick1"));
+        //TODO Prune input and check current user
+        System.out.println(request.getParameter("pick" + (d.getLastPick() + 2)));
+        d.makePick("test", request.getParameter("pick" + (d.getLastPick() + 2)));
         doGet(request, response);
     }
 
