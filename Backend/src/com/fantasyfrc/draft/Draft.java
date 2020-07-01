@@ -14,7 +14,7 @@ public class Draft {
     private int lastPick = -1;
     private String[] players;
 
-
+    //TODO Load drafts from database
 
     /**
      * Creates draft from a list of players
@@ -40,7 +40,7 @@ public class Draft {
     //TODO Needs to check that a team has not already been picked
     //TODO Check that team is at event
     //TODO Remove username field
-    public void makePick(final String username, final String teamID) {
+    public boolean makePick(final String username, final String teamID) {
         System.out.println("Pick of: " + teamID + " from: " + username);
         //&& picks[lastPick + 1].getUser().equals(username)
         if (!picks[lastPick + 1].isLocked()) {
@@ -49,7 +49,9 @@ public class Draft {
             picks[lastPick + 1].unlock();
             lastPickTime = System.nanoTime();
             //DraftDatabaseManager.getInstance().updateDatabase(this);
+            return true;
         }
+        return false;
     }
 
     String genJSONStr() {

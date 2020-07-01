@@ -2,7 +2,9 @@ package com.fantasyfrc.server;
 
 import com.fantasyfrc.draft.Draft;
 
+import java.awt.*;
 import java.io.IOException;
+import java.util.jar.JarEntry;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -39,7 +41,11 @@ public class EmployeeTaskServlet extends HttpServlet {
         System.out.println(d.getId());
         //TODO Prune input and check current user
         System.out.println(request.getParameter("pick" + (d.getLastPick() + 2)));
-        d.makePick("test", request.getParameter("pick" + (d.getLastPick() + 2)));
+        if(!d.makePick("test", request.getParameter("pick" + (d.getLastPick() + 2)))){
+            //TODO Make error message
+            //TODO Make error message specific
+            System.out.println("Error");
+        }
         doGet(request, response);
     }
 
