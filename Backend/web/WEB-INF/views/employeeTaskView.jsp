@@ -26,7 +26,7 @@
                 <th>${activeDraft.players[7]}</th>
             </tr>
             <tr>
-                <td><label for="pick1"></label><input type="text" id="pick1" name="pick1" size = "3 px" ${activeDraft.picks[0].locked ? 'disabled' : ''} value=${activeDraft.picks[0].pick}></td>
+            <td><label for="pick1"></label><input type="text" id="pick1" name="pick1" size = "3 px" ${activeDraft.picks[0].locked ? 'disabled' : ''} value=${activeDraft.picks[0].pick}></td>
                 <td><label for="pick2"></label><input type="text" id="pick2" name="pick2" size = "3 px" ${activeDraft.picks[1].locked ? 'disabled' : ''} value=${activeDraft.picks[1].pick}></td>
                 <td><label for="pick3"></label><input type="text" id="pick3" name="pick3" size = "3 px" ${activeDraft.picks[2].locked ? 'disabled' : ''} value=${activeDraft.picks[2].pick}></td>
                 <td><label for="pick4"></label><input type="text" id="pick4" name="pick4" size = "3 px" ${activeDraft.picks[3].locked ? 'disabled' : ''} value=${activeDraft.picks[3].pick}></td>
