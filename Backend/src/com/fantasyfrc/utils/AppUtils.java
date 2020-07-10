@@ -19,9 +19,10 @@ public class AppUtils {
     public static void storeLoginedUser(HttpSession session, UserAccount loginedUser) {
         // On the JSP can access via ${loginedUser}
         session.setAttribute("loginedUser", loginedUser);
-        session.setAttribute("activeDraft", new Draft("testDraft", new String[]{
-            "Jakob", "Jon", "Jill", "Jack", "Bill", "Steve", "Jane", "Jim"
-        }));
+        session.setAttribute("activeDraft", new Draft("testDraft"));
+//        session.setAttribute("activeDraft", new Draft("testDraft", new String[]{
+//                "Jakob", "Jon", "Jill", "Jack", "Bill", "Steve", "Jane", "Jim"
+//        }));
     }
 
     // Get the user information stored in the session.

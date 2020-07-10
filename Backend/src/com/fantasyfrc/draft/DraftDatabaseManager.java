@@ -115,6 +115,21 @@ public class DraftDatabaseManager {
         }
     }
 
+    public Draft loadDraft(final String id){
+        if(draftExists(id)){
+            try {
+                Statement statement = Objects.requireNonNull(DraftDatabaseManager.getInstance().getCon().createStatement());
+                String draftStr = DraftDatabaseManager.getInstance().read(statement, String.format("select drafts from drafts where id = \"%s\"", id));
+                return Constants.getInstance().getGson().fromJson(draftStr, Draft.class);
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+                return null;
+            }
+        }else{
+            return null;
+        }
+    }
+
     public DataProvider<String, Draft> getDataProvider() {
         return dataProvider;
     }
