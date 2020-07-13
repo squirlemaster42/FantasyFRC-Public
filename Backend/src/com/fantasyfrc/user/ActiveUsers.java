@@ -28,4 +28,8 @@ public final class ActiveUsers {
     public User getUser(final String username){
         return users.get(username);
     }
+
+    public void deauthUser(final String username){
+        users.remove(username);
+    }
 }

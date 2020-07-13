@@ -13,12 +13,10 @@ public class Draft {
     private int lastPick = -1;
     private String[] players;
 
-    //TODO Load drafts from database
     public Draft(final String id){
         this.id = id;
         if(!DraftDatabaseManager.getInstance().draftExists(id)){
-            //TODO Figure out error
-
+            //TODO Display error to user
             //TODO Figure out if this is the best way to get around the final error
             picks = null;
             return;

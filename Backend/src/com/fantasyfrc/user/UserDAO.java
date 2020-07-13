@@ -34,7 +34,7 @@ public class UserDAO {
 //    }
 
     public static UserAccount findUser(String userName, String password) {
-        if(User.createUser(userName, password)){
+        if(User.initUser(userName, password)){
             return new UserAccount(ActiveUsers.getInstance().getUser(userName).getUsername(), password, UserAccount.GENDER_MALE, SecurityConfig.ROLE_EMPLOYEE, SecurityConfig.ROLE_MANAGER);
         }
         return null;

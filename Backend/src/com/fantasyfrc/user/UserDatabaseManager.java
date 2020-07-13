@@ -21,7 +21,6 @@ public class UserDatabaseManager {
         return instance;
     }
 
-    //TODO Fix this
     private final String username, password, url;
 
     private UserDatabaseManager() {
@@ -71,7 +70,25 @@ public class UserDatabaseManager {
         Statement statement = null;
         try {
             statement = Objects.requireNonNull(getCon()).createStatement();
-            statement.executeUpdate("update users set drafts = \'" + user.genJsonString() + "\' where username = \'" + user.getUsername() + "\'");
+            statement.executeUpdate("update users set drafts = " + user.genJsonString() + "' where id = '" + user.getId() + "'");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            try {
+                if (statement != null) {
+                    statement.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void updateID(final User user){
+        Statement statement = null;
+        try {
+            statement = Objects.requireNonNull(getCon()).createStatement();
+            statement.executeUpdate("update users set id = '" + user.getId() + "' where username = '" + user.getUsername() + "'");
         } catch (SQLException e) {
             e.printStackTrace();
         }finally {
@@ -91,6 +108,19 @@ public class UserDatabaseManager {
             ResultSet result = statement.executeQuery("select drafts from users where username = '" + userID + "'");
             if(result.first()){
                 return result.getString("drafts");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+
+    public String getUserID(final String userid){
+        try {
+            Statement statement = Objects.requireNonNull(getCon()).createStatement();
+            ResultSet result = statement.executeQuery("select id from users where username = '" + userid + "'");
+            if(result.first()){
+                return result.getString("id");
             }
         } catch (SQLException e) {
             e.printStackTrace();
