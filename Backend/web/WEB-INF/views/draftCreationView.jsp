@@ -42,6 +42,7 @@
                 <td><input type="text" name = "player8"/></td>
             </tr>
         </table>
+        <input type="submit" value= "Submit" />
     </form>
 </div>
 
