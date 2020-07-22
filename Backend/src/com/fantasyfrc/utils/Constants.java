@@ -100,7 +100,7 @@ public class Constants {
     }
 
     public String getTBAAuthKey() {
-        return confMap.get("tba").getProperty("tbakey");
+        return confMap.get("tba").getProperty("tbaKey");
     }
 
     public File getPathToCSV() {

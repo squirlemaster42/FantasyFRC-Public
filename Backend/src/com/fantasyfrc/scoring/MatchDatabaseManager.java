@@ -42,7 +42,7 @@ public class MatchDatabaseManager {
 
     public ScoreRecord getScore(final String matchId){
         try(Statement statement = getCon().createStatement()){
-            ResultSet rs = statement.executeQuery(String.format("SELECT * from matches WHERE id = '%s'", matchId));
+            ResultSet rs = statement.executeQuery(String.format("SELECT * from qualMatches WHERE id = '%s'", matchId));
             if(!rs.next()){
                 return new ScoreRecord(-1, -1);
             }else{
@@ -57,14 +57,14 @@ public class MatchDatabaseManager {
 
     public void updateScore(final String matchId, final int redScore, final int blueScore){
         try(Statement statement = getCon().createStatement()){
-            ResultSet exists = statement.executeQuery(String.format("SELECT * from matches WHERE id = '%s'", matchId));
+            ResultSet exists = statement.executeQuery(String.format("SELECT * from qualMatches WHERE id = '%s'", matchId));
             if(exists.first()){
                 //Team exists, we need to update
-                statement.execute(String.format("UPDATE matches set red_score = %d WHERE id = '%s'", redScore, matchId));
-                statement.execute(String.format("UPDATE matches set blue_score = %d WHERE id = '%s'", blueScore, matchId));
+                statement.execute(String.format("UPDATE qualMatches set red_score = %d WHERE id = '%s'", redScore, matchId));
+                statement.execute(String.format("UPDATE qualMatches set blue_score = %d WHERE id = '%s'", blueScore, matchId));
             }else{
                 //Team does not exist, we need to add
-                statement.execute(String.format("INSERT INTO matches VALUES('%s', %d, %d)", matchId, redScore, blueScore));
+                statement.execute(String.format("INSERT INTO qualMatches VALUES('%s', %d, %d)", matchId, redScore, blueScore));
             }
         }catch (SQLException e){
             e.printStackTrace();

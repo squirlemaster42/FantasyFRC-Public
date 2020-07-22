@@ -1,13 +1,7 @@
 package com.fantasyfrc.scoring;
 
-import com.fantasyfrc.scoring.exceptions.ElimMatchException;
-import com.fantasyfrc.scoring.exceptions.InvalidMatchException;
 import com.fantasyfrc.scoring.utils.jsonobjects.match.Match;
 import com.fantasyfrc.scoring.utils.jsonobjects.match.ScoreBreakdown;
-import com.fantasyfrc.team.Team;
-
-import java.util.ArrayList;
-import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Queue;
 
@@ -35,40 +29,28 @@ import java.util.Queue;
 //Match scorer will score only qual matches
 //Team scorer will score everything else since that it more team specific and is not score base on the individual match
 
-public class MatchScorer implements Runnable{
+public class QualMatchScorer implements Runnable{
 
-    private static MatchScorer instance;
+    private static QualMatchScorer instance;
 
-    public MatchScorer getInstance(){
+    public static QualMatchScorer getInstance(){
         if(instance == null){
-            instance = new MatchScorer();
+            instance = new QualMatchScorer();
         }
         return instance;
     }
 
-    //Stores the teams who's matches we want to score
-    private final List<Team> activeTeams;
     private final Queue<Match> toScoreQueue;
 
     private Thread thread;
     private boolean running = false;
 
-    private MatchScorer(){
-        activeTeams = new ArrayList<>();
+    private QualMatchScorer(){
         toScoreQueue = new PriorityQueue<>(); //TODO Figure out how to assign priority to match
     }
 
-    //TODO Check equality in teams
-
-    //TODO Implement in draft
-    public void addTeamToScore(final Team team){
-        activeTeams.add(team);
-        //TODO Add teams matches to priority queue
-    }
-
-    public void removeTeamToScore(final Team team){
-        activeTeams.remove(team);
-        //TODO Remove team's matches from queue
+    public void addMatchToScore(final Match m){
+        toScoreQueue.add(m);
     }
 
     @Override
@@ -81,12 +63,12 @@ public class MatchScorer implements Runnable{
                 return;
             }
 
-            try {
-                scoreMatch(toScore);
-                //TODO Add to database
-            } catch (InvalidMatchException | ElimMatchException e) {
-                e.printStackTrace();
-            }
+//            try {
+//                scoreMatch(toScore);
+//                //TODO Add to database
+//            } catch (InvalidMatchException | ElimMatchException e) {
+//                e.printStackTrace();
+//            }
         }
     }
 
@@ -112,20 +94,6 @@ public class MatchScorer implements Runnable{
         }
     }
 
-    //Methods below this point are used for the purpose of scoring the team
-    private enum MatchType {
-        QUAL,
-        QUARTER,
-        SEMI,
-        FINAL,
-        EINSTEINRR,
-        EINSTEINF
-    }
-
-    private enum Alliance {
-        RED,
-        BLUE
-    }
 
     //TODO Update comments for 2020
     private static final int WIN_POINTS = 3;
@@ -133,55 +101,18 @@ public class MatchScorer implements Runnable{
     private static final int RP2_POINTS = 2; //Rocket RP
 
     //https://github.com/squirlemaster42/Fantasy-FRC/blob/master/Back%20End/FantasyFRCBackend/src/com/onion/scoring/Scorer.java
-    public static void scoreMatch(Match match) throws InvalidMatchException, ElimMatchException {
-        int redScore = 0;
-        int blueScore = 0;
-
-        MatchType matchType = getMatchType(match);
-        switch (matchType){
-            case QUAL:
-                redScore = scoreQual(match, Alliance.RED);
-                blueScore = scoreQual(match, Alliance.BLUE);
-                break;
-            case EINSTEINRR:
-                redScore += scoreEinsteinRR(Alliance.RED);
-                blueScore += scoreEinsteinRR(Alliance.BLUE);
-                break;
-            case QUARTER:
-            case SEMI:
-            case FINAL:
-            case EINSTEINF:
-                throw new ElimMatchException(); //TODO Eval
-            default:
-                throw new InvalidMatchException();
-        }
+    static void scoreMatch(Match match) {
+        //TODO Check if match is already scored
+        int redScore = scoreQual(match, Alliance.RED);
+        int blueScore = scoreQual(match, Alliance.BLUE);
 
         match.setRedScore(redScore);
         match.setBlueScore(blueScore);
+        //TODO Account for replays
         match.setScored(redScore > 0 || blueScore > 0); //This will work because at least one team will get a ranking point because at least one team has to win or there is a tie
-    }
 
-    private static MatchType getMatchType(final Match match) throws InvalidMatchException {
-        switch(match.getComp_level()){
-            case "qm":
-                return MatchType.QUAL;
-            case "qf":
-                return MatchType.QUARTER;
-            case "sf":
-                if(match.getKey().contains("cmptx") || match.getKey().contains("cmpmi")){
-                    return MatchType.EINSTEINRR;
-                }
-                return MatchType.SEMI;
-            case "f":
-                if(match.getKey().contains("cmptx") || match.getKey().contains("cmpmi")){
-                    return MatchType.EINSTEINF;
-                }
-                return MatchType.FINAL;
-            default:
-                throw new InvalidMatchException();
-        }
+        MatchDatabaseManager.getInstance().updateScore(match.getKey(), redScore, blueScore); //TODO Make sure key is correct for id
     }
-
 
     private static int scoreQual(Match match, Alliance a){
         //TODO Update for 2020
@@ -205,7 +136,4 @@ public class MatchScorer implements Runnable{
         return score;
     }
 
-    private static int scoreEinsteinRR(Alliance a){
-        return 0;
-    }
 }

@@ -23,22 +23,22 @@ public class Team {
         this.teamID = teamID;
         matches = new ArrayList<>();
         addMatches();
-        update();
+        //update();
     }
 
-    public void update(){
-        for (Match match : matches){
-            if(Arrays.asList(match.getAlliances().get("red").getTeam_keys()).contains(getTeamID())){
-                score += match.getRedScore();
-            }else{
-                score += match.getBlueScore();
-            }
-            if(match.matchScored()){
-                lastMatchScored = matches.indexOf(match);
-            }
-        }
-
-    }
+//    public void update(){
+//        for (Match match : matches){
+//            if(Arrays.asList(match.getAlliances().get("red").getTeam_keys()).contains(getTeamID())){
+//                score += match.getRedScore();
+//            }else{
+//                score += match.getBlueScore();
+//            }
+//            if(match.matchScored()){
+//                lastMatchScored = matches.indexOf(match);
+//            }
+//        }
+//
+//    }
 
     void addMatches(){
         List<String> matchStrings = new ArrayList<>();
@@ -62,5 +62,9 @@ public class Team {
 
     public String getTeamID(){
         return teamID;
+    }
+
+    public List<Match> getMatches(){
+        return matches;
     }
 }

@@ -1,6 +1,6 @@
 package com.fantasyfrc.event;
 
-import com.fantasyfrc.scoring.MatchScorer;
+import com.fantasyfrc.scoring.QualMatchScorer;
 import com.fantasyfrc.scoring.exceptions.ElimMatchException;
 import com.fantasyfrc.scoring.exceptions.InvalidMatchException;
 import com.fantasyfrc.scoring.utils.jsonobjects.match.Match;
@@ -49,15 +49,16 @@ public class EventMap {
             eventMap.put(event, Arrays.asList(Parser.parseEvent(TBAReqGenerator.makeRequest(TBAReqGenerator.makeEventMatchRequest(event)))));
         }
 
-        eventMap.forEach((k, v) -> v.forEach(m -> {
-            try {
-                MatchScorer.scoreMatch(m);
-            } catch (InvalidMatchException e) {
-                e.printStackTrace();
-            } catch (ElimMatchException e) {
-                System.err.println("Trying to score elim match");
-            }
-        }));
+//        eventMap.forEach((k, v) -> v.forEach(m -> {
+//            try {
+//                //TODO Reimplement
+//                //QualMatchScorer.scoreMatch(m);
+//            } catch (InvalidMatchException e) {
+//                e.printStackTrace();
+//            } catch (ElimMatchException e) {
+//                System.err.println("Trying to score elim match");
+//            }
+//        }));
     }
 
     public List<Match> getMatchesForEvent(final String eventID){
