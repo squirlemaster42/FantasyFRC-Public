@@ -1,5 +1,7 @@
 package com.fantasyfrc.scoring;
 
+import com.fantasyfrc.scoring.exceptions.ElimMatchException;
+import com.fantasyfrc.scoring.exceptions.InvalidMatchException;
 import com.fantasyfrc.scoring.utils.jsonobjects.match.Match;
 import com.fantasyfrc.scoring.utils.jsonobjects.match.ScoreBreakdown;
 import java.util.PriorityQueue;
@@ -63,12 +65,7 @@ public class QualMatchScorer implements Runnable{
                 return;
             }
 
-//            try {
-//                scoreMatch(toScore);
-//                //TODO Add to database
-//            } catch (InvalidMatchException | ElimMatchException e) {
-//                e.printStackTrace();
-//            }
+            scoreMatch(toScore);
         }
     }
 
@@ -111,7 +108,7 @@ public class QualMatchScorer implements Runnable{
         //TODO Account for replays
         match.setScored(redScore > 0 || blueScore > 0); //This will work because at least one team will get a ranking point because at least one team has to win or there is a tie
 
-        MatchDatabaseManager.getInstance().updateScore(match.getKey(), redScore, blueScore); //TODO Make sure key is correct for id
+        MatchDatabaseManager.getInstance().updateScore(match.getKey(), redScore, blueScore);
     }
 
     private static int scoreQual(Match match, Alliance a){
