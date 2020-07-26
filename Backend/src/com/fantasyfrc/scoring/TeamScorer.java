@@ -34,7 +34,9 @@ public class TeamScorer implements Runnable{
             if(teamsToScore.isEmpty()){
                 continue;
             }
-            for(Match m :teamsToScore.poll().getMatches()){
+            Team toScore = teamsToScore.poll();
+            //Score best of ones
+            for(Match m : toScore.getMatches()){
                 MatchType matchType;
                 try{
                     matchType = MatchType.getMatchType(m);
@@ -45,17 +47,20 @@ public class TeamScorer implements Runnable{
                     case QUAL -> {
                         QualMatchScorer.getInstance().addMatchToScore(m);
                     }
-                    case QUARTER, FINAL, SEMI -> {
+                    case QUARTER, FINAL, SEMI, EINSTEINF -> {
                         //Needs to be scored as a whole
                     }
                     case EINSTEINRR -> {
-                        //TODO Make RR scorer
-                    }
-                    case EINSTEINF -> {
-                        //Needs to be scored as a whole
+                        EinsteinRRScorer.getInstance().addMatchToScore(m);
                     }
                 }
             }
+
+            //Score matches that are played as a series
+
+            //Get Playoff Score
+
+            //Get Einstein RR Score
         }
     }
 

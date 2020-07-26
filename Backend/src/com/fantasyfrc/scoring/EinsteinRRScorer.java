@@ -2,40 +2,18 @@ package com.fantasyfrc.scoring;
 
 import com.fantasyfrc.scoring.utils.jsonobjects.match.Match;
 import com.fantasyfrc.scoring.utils.jsonobjects.match.ScoreBreakdown;
+
 import java.util.PriorityQueue;
 import java.util.Queue;
 
-//Make the scorer separate from the website
-//The scorers job is to populate the sql database
-//Store the expected time that the match will be played (plus time to play match and have data updated in TBA)
-//Try to score the match then
-//If the match cannot be scored (likely because it has not been played)
-//increase the time it should be scored by x minutes (5?)
-//Need to figure out how replays are scheduled on TBA
-//If it is not clear on TBA, need to check for score change at the end of the day\
-//This should run on its own thread
+public class EinsteinRRScorer implements Runnable{
 
-//Might want to store the matches to be scored in a priority queue
-//Priority would be given based on the time the match is to be played
 
-//Playoff matches will not be scored along with Einstein finals
-//When a match is scored, the database entry for the teams in the match will be updated
-//After finals for each comp (divisions count as a comp as well as Einstein) will score playoffs
-//EinsteinRR can be scored in the normal way as it is not played in a best of x series
-//After the event, awards will be scored
-//These scored will be added to the team's score in the database
+    private static EinsteinRRScorer instance;
 
-//May want to separate match scorer and team scorer
-//Match scorer will score only qual matches
-//Team scorer will score everything else since that it more team specific and is not score base on the individual match
-
-public class QualMatchScorer implements Runnable{
-
-    private static QualMatchScorer instance;
-
-    public static QualMatchScorer getInstance(){
+    public static EinsteinRRScorer getInstance(){
         if(instance == null){
-            instance = new QualMatchScorer();
+            instance = new EinsteinRRScorer();
         }
         return instance;
     }
@@ -45,7 +23,7 @@ public class QualMatchScorer implements Runnable{
     private Thread thread;
     private boolean running = false;
 
-    private QualMatchScorer(){
+    private EinsteinRRScorer(){
         toScoreQueue = new PriorityQueue<>(); //TODO Figure out how to assign priority to match
     }
 
@@ -98,8 +76,8 @@ public class QualMatchScorer implements Runnable{
     //https://github.com/squirlemaster42/Fantasy-FRC/blob/master/Back%20End/FantasyFRCBackend/src/com/onion/scoring/Scorer.java
     static void scoreMatch(Match match) {
         //TODO Check if match is already scored
-        int redScore = scoreQual(match, Alliance.RED);
-        int blueScore = scoreQual(match, Alliance.BLUE);
+        int redScore = scoreRR(match, Alliance.RED);
+        int blueScore = scoreRR(match, Alliance.BLUE);
 
         match.setRedScore(redScore);
         match.setBlueScore(blueScore);
@@ -109,7 +87,7 @@ public class QualMatchScorer implements Runnable{
         MatchDatabaseManager.getInstance().updateScore(match.getKey(), redScore, blueScore);
     }
 
-    private static int scoreQual(Match match, Alliance a){
+    private static int scoreRR(Match match, Alliance a){
         //TODO Update for 2020
         int score = 0;
 
@@ -130,5 +108,4 @@ public class QualMatchScorer implements Runnable{
         }
         return score;
     }
-
 }
