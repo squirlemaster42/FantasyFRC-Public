@@ -13,6 +13,7 @@ public class ParserTest {
     public void testParseAlliance(){
         try {
             String reqStr = TBAReqGenerator.makeRequest(TBAReqGenerator.makeEventAllianceRequest("2019tur"));
+            //System.out.println(reqStr);
             Alliance[] alliances = Parser.getAlliances(reqStr);
             assertEquals("frc254", alliances[0].getPicks()[0]);
             assertEquals("frc3310", alliances[0].getPicks()[1]);

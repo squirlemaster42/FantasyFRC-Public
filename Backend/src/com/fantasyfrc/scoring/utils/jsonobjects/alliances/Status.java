@@ -41,7 +41,7 @@ public class Status {
         this.record = record;
     }
 
-    public CurrentLevelRecord getCurrent_level_record ()
+    public CurrentLevelRecord getCurrentLevelRecord ()
     {
         return currentLevelRecord;
     }
