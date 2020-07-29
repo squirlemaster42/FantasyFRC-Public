@@ -1,17 +1,21 @@
 package com.fantasyfrc.utils;
 
+import com.fantasyfrc.scoring.utils.jsonobjects.alliances.Alliance;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.util.Arrays;
+
+import static org.junit.Assert.assertEquals;
 
 public class ParserTest {
 
     @Test
     public void testParseAlliance(){
         try {
-            System.out.println(TBAReqGenerator.makeRequest(TBAReqGenerator.makeEventAllianceRequest("2019tur")));
-            System.out.println(Arrays.toString(Parser.getAlliances(TBAReqGenerator.makeRequest(TBAReqGenerator.makeEventAllianceRequest("2019tur")))));
+            String reqStr = TBAReqGenerator.makeRequest(TBAReqGenerator.makeEventAllianceRequest("2019tur"));
+            Alliance[] alliances = Parser.getAlliances(reqStr);
+            assertEquals("frc254", alliances[0].getPicks()[0]);
+            assertEquals("frc3310", alliances[0].getPicks()[1]);
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -1,11 +1,10 @@
 package com.fantasyfrc.utils;
 
-import com.fantasyfrc.scoring.Alliance;
+import com.fantasyfrc.scoring.utils.jsonobjects.alliances.Alliance;
 import com.fantasyfrc.scoring.utils.jsonobjects.match.Match;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 public class Parser {
 
