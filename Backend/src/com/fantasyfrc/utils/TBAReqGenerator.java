@@ -1,6 +1,5 @@
 package com.fantasyfrc.utils;
 
-import com.fantasyfrc.team.Team;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 
@@ -31,5 +30,9 @@ public class TBAReqGenerator {
     //Used to get a list of matches for the event a team is attending
     public static String makeMatchListRequest(final String eventID, final String teamID){
         return "https://www.thebluealliance.com/api/v3/team/" + teamID + "/event/" + eventID + "/matches/keys";
+    }
+
+    public static String makeEventAllianceRequest(final String eventID){
+        return String.format("https://www.thebluealliance.com/api/v3/event/%s/alliances", eventID);
     }
 }

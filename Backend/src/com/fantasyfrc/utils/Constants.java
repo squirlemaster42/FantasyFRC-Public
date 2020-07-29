@@ -103,14 +103,6 @@ public class Constants {
         return confMap.get("tba").getProperty("tbaKey");
     }
 
-    public File getPathToCSV() {
-        return pathToCSV;
-    }
-
-    public void setPathToCSV(File file) {
-        this.pathToCSV = file;
-    }
-
     public Properties getConfig(String conf) {
         return confMap.get(conf);
     }

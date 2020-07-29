@@ -1,5 +1,6 @@
 package com.fantasyfrc.utils;
 
+import com.fantasyfrc.scoring.Alliance;
 import com.fantasyfrc.scoring.utils.jsonobjects.match.Match;
 
 import java.util.ArrayList;
@@ -29,6 +30,10 @@ public class Parser {
 
     public static Match[] parseEvent(final String jsonStr){
         return Constants.getInstance().getGson().fromJson(jsonStr, Match[].class);
+    }
+
+    public static Alliance[] getAlliances(final String jsonStr){
+        return Constants.getInstance().getGson().fromJson(jsonStr, Alliance[].class);
     }
 
 }
