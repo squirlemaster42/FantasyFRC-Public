@@ -106,7 +106,7 @@ public class QualMatchScorer implements Runnable{
         //TODO Account for replays
         match.setScored(redScore > 0 || blueScore > 0); //This will work because at least one team will get a ranking point because at least one team has to win or there is a tie
 
-        MatchDatabaseManager.getInstance().updateScore(match.getKey(), redScore, blueScore);
+        QualMatchDatabaseManager.getInstance().updateScore(match.getKey(), redScore, blueScore);
     }
 
     private static int scoreQual(Match match, Alliance a){

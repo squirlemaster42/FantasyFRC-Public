@@ -8,13 +8,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class MatchDatabaseManager {
+public class QualMatchDatabaseManager {
 
-    private static MatchDatabaseManager instance;
+    private static QualMatchDatabaseManager instance;
 
-    public static MatchDatabaseManager getInstance(){
+    public static QualMatchDatabaseManager getInstance(){
         if(instance == null){
-            instance = new MatchDatabaseManager();
+            instance = new QualMatchDatabaseManager();
         }
         return instance;
     }
@@ -23,7 +23,7 @@ public class MatchDatabaseManager {
     private final String username, password, url;
     record ScoreRecord(int redScore, int blueScore){}
 
-    private MatchDatabaseManager(){
+    private QualMatchDatabaseManager(){
         username = Constants.getInstance().getConfig("sql").getProperty("username");
         password = Constants.getInstance().getConfig("sql").getProperty("password");
         url = Constants.getInstance().getConfig("sql").getProperty("url");
@@ -33,8 +33,8 @@ public class MatchDatabaseManager {
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
             return DriverManager.getConnection(url, username, password);
-        }catch(Exception ex) {
-            System.out.println(ex.getMessage());
+        }catch(ClassNotFoundException | SQLException e) {
+            System.out.println(e.getMessage());
             System.out.println("couldn't connect!");
         }
         return null;

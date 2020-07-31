@@ -37,6 +37,7 @@ public class AllianceScorer implements Runnable{
             int score = scoreAlliance(currScoring);
 
             //Add to database
+
         }
     }
 
