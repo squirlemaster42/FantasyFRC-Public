@@ -20,7 +20,7 @@ public class PlayoffDatabaseManager {
     }
 
     private final String username, password, url;
-    record AllianceScore(String[] teams, int score){}
+    record AllianceScore(String teams, int score){}
 
     private PlayoffDatabaseManager(){
         username = Constants.getInstance().getConfig("sql").getProperty("username");
@@ -44,8 +44,7 @@ public class PlayoffDatabaseManager {
             if(!rs.next()){
                 return new AllianceScore(null, -1); //Sent if result is bad
             }else{
-                String[] teamIds = teams.split(",");
-                return new AllianceScore(teamIds, rs.getInt("score"));
+                return new AllianceScore(teams, rs.getInt("score"));
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -55,7 +54,12 @@ public class PlayoffDatabaseManager {
 
     public void updateScore(final AllianceScore allianceScore){
         try(Statement statement = getCon().createStatement()){
-            ResultSet exists = statement.executeQuery(String.format("SELECT * from playoffs where teams = '%s'", allianceScore.teams.));
+            ResultSet exists = statement.executeQuery(String.format("SELECT * from playoffs where teams = '%s'", allianceScore.teams));
+            if(exists.first()){
+                statement.execute(String.format("UPDATE playoffs set score = '%d' WHERE teams = '%s'", allianceScore.score, allianceScore.teams));
+            }else{
+                statement.execute(String.format("INSERT INTO playoffs VALUES('%s', '%d')", allianceScore.teams, allianceScore.score));
+            }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
