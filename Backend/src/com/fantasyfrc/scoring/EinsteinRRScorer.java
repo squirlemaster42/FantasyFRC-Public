@@ -69,9 +69,10 @@ public class EinsteinRRScorer implements Runnable{
 
 
     //TODO Update comments for 2020
-    private static final int WIN_POINTS = 3;
-    private static final int RP1_POINTS = 1; //Climb RP
-    private static final int RP2_POINTS = 2; //Rocket RP
+    private static final int WIN_POINTS = 18;
+    //This is kept in case a change is make to the scoring structure
+    private static final int RP1_POINTS = 0; //Climb RP
+    private static final int RP2_POINTS = 0; //Rocket RP
 
     //https://github.com/squirlemaster42/Fantasy-FRC/blob/master/Back%20End/FantasyFRCBackend/src/com/onion/scoring/Scorer.java
     static void scoreMatch(Match match) {

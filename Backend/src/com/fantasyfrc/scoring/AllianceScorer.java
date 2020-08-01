@@ -37,7 +37,7 @@ public class AllianceScorer implements Runnable{
             int score = scoreAlliance(currScoring);
 
             //Add to database
-
+            PlayoffDatabaseManager.getInstance().updateScore(new PlayoffDatabaseManager.AllianceScore(currScoring.getName(), score));
         }
     }
 
@@ -61,6 +61,10 @@ public class AllianceScorer implements Runnable{
             }
             default -> throw new IllegalStateException("Unexpected value: " + alliance.getStatus().getLevel());
         };
+    }
+
+    public void addAllianceToScore(Alliance alliance){
+        toScore.add(alliance);
     }
 
     public synchronized  void start(){

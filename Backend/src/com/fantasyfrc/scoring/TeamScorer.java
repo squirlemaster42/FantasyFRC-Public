@@ -60,7 +60,7 @@ public class TeamScorer implements Runnable{
 
             //Get Playoff Score
 
-            //Get Einstein RR Score
+            //Get Einstein Finals Score
         }
     }
 
