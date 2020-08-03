@@ -67,7 +67,7 @@ public class AllianceScorer implements Runnable{
         toScore.add(alliance);
     }
 
-    public synchronized  void start(){
+    public synchronized void start(){
         if(running){
             return;
         }
