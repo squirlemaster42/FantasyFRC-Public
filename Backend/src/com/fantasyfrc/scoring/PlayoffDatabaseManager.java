@@ -38,13 +38,14 @@ public class PlayoffDatabaseManager {
         return null;
     }
 
-    public AllianceScore getScore(final String teams){
+    //TODO Need to fix to add event
+    public AllianceScore getScore(final String team){
         try(Statement statement = getCon().createStatement()){
-            ResultSet rs = statement.executeQuery(String.format("Select * from playoffs where teams  = '%s'", teams));
+            ResultSet rs = statement.executeQuery(String.format("Select * from playoffs where team  = '%s'", team));
             if(!rs.next()){
                 return new AllianceScore(null, -1); //Sent if result is bad
             }else{
-                return new AllianceScore(teams, rs.getInt("score"));
+                return new AllianceScore(team, rs.getInt("score"));
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -54,9 +55,9 @@ public class PlayoffDatabaseManager {
 
     public void updateScore(final AllianceScore allianceScore){
         try(Statement statement = getCon().createStatement()){
-            ResultSet exists = statement.executeQuery(String.format("SELECT * from playoffs where teams = '%s'", allianceScore.teams));
+            ResultSet exists = statement.executeQuery(String.format("SELECT * from playoffs where team = '%s'", allianceScore.teams));
             if(exists.first()){
-                statement.execute(String.format("UPDATE playoffs set score = '%d' WHERE teams = '%s'", allianceScore.score, allianceScore.teams));
+                statement.execute(String.format("UPDATE playoffs set score = '%d' WHERE team = '%s'", allianceScore.score, allianceScore.teams));
             }else{
                 statement.execute(String.format("INSERT INTO playoffs VALUES('%s', '%d')", allianceScore.teams, allianceScore.score));
             }

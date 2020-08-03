@@ -28,6 +28,7 @@ public class TeamScorer implements Runnable{
         teamsToScore = new PriorityBlockingQueue<>();
     }
 
+    //Might want to remove team scorer as it might be better to just use the individual scorers. This may just be extra
     @Override
     public void run() {
         while(running){
