@@ -37,7 +37,7 @@ public class AllianceScorer implements Runnable{
             int score = scoreAlliance(currScoring);
 
             //Add to database
-            PlayoffDatabaseManager.getInstance().updateScore(new PlayoffDatabaseManager.AllianceScore(currScoring.getName(), score));
+            PlayoffDatabaseManager.getInstance().updateScore(new PlayoffDatabaseManager.AllianceScore(currScoring.getName(), score), currScoring.getEventStr());
         }
     }
 

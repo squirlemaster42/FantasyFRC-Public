@@ -39,9 +39,9 @@ public class PlayoffDatabaseManager {
     }
 
     //TODO Need to fix to add event
-    public AllianceScore getScore(final String team){
+    public AllianceScore getScore(final String team, final String event){
         try(Statement statement = getCon().createStatement()){
-            ResultSet rs = statement.executeQuery(String.format("Select * from playoffs where team  = '%s'", team));
+            ResultSet rs = statement.executeQuery(String.format("Select * from playoffs where team  = '%s' and event = '%s'", team, event));
             if(!rs.next()){
                 return new AllianceScore(null, -1); //Sent if result is bad
             }else{
@@ -53,13 +53,13 @@ public class PlayoffDatabaseManager {
         return new AllianceScore(null, 0);
     }
 
-    public void updateScore(final AllianceScore allianceScore){
+    public void updateScore(final AllianceScore allianceScore, final String event){
         try(Statement statement = getCon().createStatement()){
-            ResultSet exists = statement.executeQuery(String.format("SELECT * from playoffs where team = '%s'", allianceScore.teams));
+            ResultSet exists = statement.executeQuery(String.format("SELECT * from playoffs where team = '%s' and event = '%s'", allianceScore.teams, event));
             if(exists.first()){
-                statement.execute(String.format("UPDATE playoffs set score = '%d' WHERE team = '%s'", allianceScore.score, allianceScore.teams));
+                statement.execute(String.format("UPDATE playoffs set score = '%d' WHERE team = '%s' and event  = '%s'", allianceScore.score, allianceScore.teams, event));
             }else{
-                statement.execute(String.format("INSERT INTO playoffs VALUES('%s', '%d')", allianceScore.teams, allianceScore.score));
+                statement.execute(String.format("INSERT INTO playoffs VALUES('%s', '%s', '%d')", allianceScore.teams, event, allianceScore.score));
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();

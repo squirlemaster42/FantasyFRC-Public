@@ -3,6 +3,8 @@ package com.fantasyfrc.scoring.utils.jsonobjects.alliances;
 import java.util.Arrays;
 
 public class Alliance {
+    private String eventStr;
+
     private String[] declines;
 
     private Backup backup;
@@ -51,6 +53,14 @@ public class Alliance {
 
     public void setStatus(Status status) {
         this.status = status;
+    }
+
+    public void setEventStr(final String eventStr){
+        this.eventStr = eventStr;
+    }
+
+    public String getEventStr(){
+        return eventStr;
     }
 
     @Override

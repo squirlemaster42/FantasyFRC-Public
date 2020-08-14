@@ -31,8 +31,12 @@ public class Parser {
         return Constants.getInstance().getGson().fromJson(jsonStr, Match[].class);
     }
 
-    public static Alliance[] getAlliances(final String jsonStr){
-        return Constants.getInstance().getGson().fromJson(jsonStr, Alliance[].class);
+    public static Alliance[] getAlliances(final String eventStr, final String jsonStr){
+        Alliance[] alliances = Constants.getInstance().getGson().fromJson(jsonStr, Alliance[].class);
+        for(Alliance a : alliances){
+            a.setEventStr(eventStr);
+        }
+        return alliances;
     }
 
 }

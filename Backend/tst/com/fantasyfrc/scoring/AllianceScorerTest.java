@@ -19,7 +19,7 @@ public class AllianceScorerTest {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Alliance[] alliances = Parser.getAlliances(reqStr);
+        Alliance[] alliances = Parser.getAlliances("2019tur", reqStr);
         assertEquals(24, AllianceScorer.getInstance().scoreAlliance(alliances[0]));
         assertEquals(6, AllianceScorer.getInstance().scoreAlliance(alliances[1]));
         assertEquals(6, AllianceScorer.getInstance().scoreAlliance(alliances[2]));
