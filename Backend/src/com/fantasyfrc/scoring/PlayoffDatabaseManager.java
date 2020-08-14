@@ -56,14 +56,15 @@ public class PlayoffDatabaseManager {
 
     public void updateScore(final AllianceScore allianceScore, final String event){
         try(Statement statement = getCon().createStatement()){
-            ResultSet exists = statement.executeQuery(String.format("SELECT * from playoffs where team = '%s' and event = '%s'", allianceScore.teams, event));
+            //If one team exists the rest should
+            ResultSet exists = statement.executeQuery(String.format("SELECT * from playoffs where team = '%s' and event = '%s'", allianceScore.teams[0], event));
             if(exists.first()){
                 for(String team : allianceScore.teams){
-                    statement.execute(String.format("UPDATE playoffs set score = '%d' WHERE team = '%s' and event  = '%s'", allianceScore.score, allianceScore.teams, event));
+                    statement.execute(String.format("UPDATE playoffs set score = '%d' WHERE team = '%s' and event  = '%s'", allianceScore.score, team, event));
                 }
             }else{
                 for(String team : allianceScore.teams) {
-                    statement.execute(String.format("INSERT INTO playoffs VALUES('%s', '%s', '%d')", allianceScore.teams, event, allianceScore.score));
+                    statement.execute(String.format("INSERT INTO playoffs VALUES('%s', '%s', '%d')", team, event, allianceScore.score));
                 }
             }
         } catch (SQLException throwables) {
