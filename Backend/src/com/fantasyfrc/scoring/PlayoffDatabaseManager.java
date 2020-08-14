@@ -20,7 +20,8 @@ public class PlayoffDatabaseManager {
     }
 
     private final String username, password, url;
-    record AllianceScore(String teams, int score){}
+    record AllianceScore(String[] teams, int score){}
+    record TeamScore(String team, int score){}
 
     private PlayoffDatabaseManager(){
         username = Constants.getInstance().getConfig("sql").getProperty("username");
@@ -39,27 +40,31 @@ public class PlayoffDatabaseManager {
     }
 
     //TODO Need to fix to add event
-    public AllianceScore getScore(final String team, final String event){
+    public TeamScore getScore(final String team, final String event){
         try(Statement statement = getCon().createStatement()){
             ResultSet rs = statement.executeQuery(String.format("Select * from playoffs where team  = '%s' and event = '%s'", team, event));
             if(!rs.next()){
-                return new AllianceScore(null, -1); //Sent if result is bad
+                return new TeamScore(null, -1); //Sent if result is bad
             }else{
-                return new AllianceScore(team, rs.getInt("score"));
+                return new TeamScore(team, rs.getInt("score"));
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        return new AllianceScore(null, 0);
+        return new TeamScore(null, 0);
     }
 
     public void updateScore(final AllianceScore allianceScore, final String event){
         try(Statement statement = getCon().createStatement()){
             ResultSet exists = statement.executeQuery(String.format("SELECT * from playoffs where team = '%s' and event = '%s'", allianceScore.teams, event));
             if(exists.first()){
-                statement.execute(String.format("UPDATE playoffs set score = '%d' WHERE team = '%s' and event  = '%s'", allianceScore.score, allianceScore.teams, event));
+                for(String team : allianceScore.teams){
+                    statement.execute(String.format("UPDATE playoffs set score = '%d' WHERE team = '%s' and event  = '%s'", allianceScore.score, allianceScore.teams, event));
+                }
             }else{
-                statement.execute(String.format("INSERT INTO playoffs VALUES('%s', '%s', '%d')", allianceScore.teams, event, allianceScore.score));
+                for(String team : allianceScore.teams) {
+                    statement.execute(String.format("INSERT INTO playoffs VALUES('%s', '%s', '%d')", allianceScore.teams, event, allianceScore.score));
+                }
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
