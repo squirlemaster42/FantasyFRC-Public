@@ -53,6 +53,10 @@ public class QualMatchScorer implements Runnable{
         toScoreQueue.add(m);
     }
 
+    Match pollMatch(){
+        return toScoreQueue.poll();
+    }
+
     @Override
     public void run() {
         while(running){

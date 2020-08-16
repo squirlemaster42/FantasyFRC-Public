@@ -23,4 +23,15 @@ public class QualMatchScorerTest {
         assertEquals(0, QualMatchDatabaseManager.getInstance().getScore("2019tur_qm16").redScore());
     }
 
+    @Test
+    public void testCorrectPriority(){
+        EventMap.getInstance();
+        for(int i = 1; i <= 16; i++){
+            QualMatchScorer.getInstance().addMatchToScore(EventMap.getInstance().getMatchFromEvent("2019tur_qm" + i));
+        }
+        for(int i = 1; i <= 16; i++){
+            assertEquals("2019tur_qm" + i, QualMatchScorer.getInstance().pollMatch().getKey());
+        }
+    }
+
 }

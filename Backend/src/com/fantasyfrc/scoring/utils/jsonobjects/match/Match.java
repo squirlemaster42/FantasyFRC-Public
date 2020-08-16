@@ -1,8 +1,10 @@
 package com.fantasyfrc.scoring.utils.jsonobjects.match;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Map;
 
-public class Match {
+public class Match implements Comparable{
 
     private int redScore = 0;
     private int blueScore = 0;
@@ -97,5 +99,10 @@ public class Match {
 
     public String getWinning_alliance() {
         return winning_alliance;
+    }
+
+    @Override
+    public int compareTo(@NotNull Object o) {
+        return Math.toIntExact(getPredicted_time() - ((Match) o).getPredicted_time());
     }
 }

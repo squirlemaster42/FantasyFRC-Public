@@ -48,8 +48,8 @@ public class PlayoffDatabaseManager {
             }else{
                 return new TeamScore(team, rs.getInt("score"));
             }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
         return new TeamScore(null, 0);
     }
@@ -67,8 +67,8 @@ public class PlayoffDatabaseManager {
                     statement.execute(String.format("INSERT INTO playoffs VALUES('%s', '%s', '%d')", team, event, allianceScore.score));
                 }
             }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 }
