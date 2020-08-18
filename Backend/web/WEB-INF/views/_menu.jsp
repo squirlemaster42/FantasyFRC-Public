@@ -21,5 +21,8 @@
 <a href="${pageContext.request.contextPath}/draftCreation">
     Draft Creation
 </a>
-&nbsp;
+||
+<a href="${pageContext.request.contextPath}/userCreation">
+    User Creation
+</a>
 <span style="color:red">[ ${loginedUser.userName} ]</span>

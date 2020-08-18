@@ -19,8 +19,12 @@ public class User {
         return true;
     }
 
-    public static boolean createUser(){
-        return false;
+    public static boolean createUser(String username){
+        if(UserDatabaseManager.getInstance().doesUserExists(username)) {
+            return false;
+        }
+
+        return true;
     }
 
     private final String username;
