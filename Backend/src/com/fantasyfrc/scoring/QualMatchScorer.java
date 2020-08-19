@@ -61,6 +61,7 @@ public class QualMatchScorer implements Runnable{
     public void run() {
         while(running){
             //Score next team from queue
+            //TODO Don't score match if it has not been played yet
             Match toScore = toScoreQueue.poll();
             if(toScore == null){
                 //There are no matches to score
