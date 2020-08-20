@@ -32,9 +32,15 @@ public class UserCreationServlet extends HttpServlet {
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     String userName = request.getParameter("userName");
-    String password = "";
+    String password = request.getParameter("password");
+
+    if(userName == null || "".equals(userName) || password == null || "".equals(password)){
+      System.out.println("acknowledged missing input");
+      throw new ServletException("Mandatory Parameter missing");
+    }
+
     try {
-      password = PasswordStorage.createHash(request.getParameter("password").toCharArray());
+      password = PasswordStorage.createHash(password.toCharArray());
     } catch (PasswordStorage.CannotPerformOperationException cpoe) {
       System.out.println("Unsupported hashing operation");
       return;
