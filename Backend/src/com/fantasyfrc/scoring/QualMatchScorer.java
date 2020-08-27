@@ -46,7 +46,7 @@ public class QualMatchScorer implements Runnable{
     private boolean running = false;
 
     private QualMatchScorer(){
-        toScoreQueue = new PriorityQueue<>(); //TODO Figure out how to assign priority to match
+        toScoreQueue = new PriorityQueue<>();
     }
 
     public void addMatchToScore(final Match m){
@@ -61,18 +61,25 @@ public class QualMatchScorer implements Runnable{
     public void run() {
         while(running){
             //Score next team from queue
-            //TODO Don't score match if it has not been played yet
-            Match toScore = toScoreQueue.poll();
+            Match toScore = toScoreQueue.peek();
             if(toScore == null){
                 //There are no matches to score
                 return;
+            }else{
+                if(scoreMatch(toScore)){
+                    toScoreQueue.poll();
+                }else{
+                    //Wait a period of time
+                    try {
+                        thread.wait(300000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
-
-            scoreMatch(toScore);
         }
     }
 
-    //TODO try to make less accessible, protected/default/private
     public synchronized void start(){
         if(running){
             return;
@@ -101,7 +108,7 @@ public class QualMatchScorer implements Runnable{
     private static final int RP2_POINTS = 2; //Rocket RP
 
     //https://github.com/squirlemaster42/Fantasy-FRC/blob/master/Back%20End/FantasyFRCBackend/src/com/onion/scoring/Scorer.java
-    static void scoreMatch(Match match) {
+    static boolean scoreMatch(Match match) {
         //TODO Check if match is already scored
         int redScore = scoreQual(match, Alliance.RED);
         int blueScore = scoreQual(match, Alliance.BLUE);
@@ -112,6 +119,7 @@ public class QualMatchScorer implements Runnable{
         match.setScored(redScore > 0 || blueScore > 0); //This will work because at least one team will get a ranking point because at least one team has to win or there is a tie
 
         QualMatchDatabaseManager.getInstance().updateScore(match.getKey(), redScore, blueScore);
+        return redScore != 0 || blueScore != 0;
     }
 
     private static int scoreQual(Match match, Alliance a){
