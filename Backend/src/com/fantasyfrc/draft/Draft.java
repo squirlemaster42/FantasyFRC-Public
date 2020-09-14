@@ -34,7 +34,6 @@ public class Draft {
      * @param id      A name/id for the draft (Must be unique)
      * @param players The players in the draft
      */
-    //TODO Verify ID is unique prior to creating draft
     public Draft(String id, String[] players) {
         this.id = id;
         this.picks = new Pick[64];
