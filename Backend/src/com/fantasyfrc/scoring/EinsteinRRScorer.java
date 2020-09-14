@@ -67,8 +67,6 @@ public class EinsteinRRScorer implements Runnable{
         }
     }
 
-
-    //TODO Update comments for 2020
     private static final int WIN_POINTS = 18;
     //This is kept in case a change is make to the scoring structure
     private static final int RP1_POINTS = 0; //Balance RP
@@ -89,7 +87,6 @@ public class EinsteinRRScorer implements Runnable{
     }
 
     private static int scoreRR(Match match, Alliance a){
-        //TODO Update for 2020
         int score = 0;
 
         String alliance = a == Alliance.RED ? "red" : "blue";

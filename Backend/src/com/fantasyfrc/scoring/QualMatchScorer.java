@@ -101,7 +101,6 @@ public class QualMatchScorer implements Runnable{
         }
     }
 
-    //TODO Update comments for 2020
     private static final int WIN_POINTS = 3;
     private static final int RP1_POINTS = 1; //Balance RP
     private static final int RP2_POINTS = 2; //Wheel/Balls Scored RP
@@ -122,7 +121,6 @@ public class QualMatchScorer implements Runnable{
     }
 
     private static int scoreQual(Match match, Alliance a){
-        //TODO Update for 2020
         int score = 0;
 
         String alliance = a == Alliance.RED ? "red" : "blue";
