@@ -61,6 +61,10 @@ public class EventMap {
 //        }));
     }
 
+    public void addEvent(String eventId) throws IOException {
+        eventMap.put(eventId, Arrays.asList(Parser.parseEvent(TBAReqGenerator.makeRequest(TBAReqGenerator.makeEventMatchRequest(eventId)))));
+    }
+
     public List<Match> getMatchesForEvent(final String eventID){
         return eventMap.get(eventID);
     }

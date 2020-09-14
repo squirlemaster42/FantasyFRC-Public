@@ -71,8 +71,8 @@ public class EinsteinRRScorer implements Runnable{
     //TODO Update comments for 2020
     private static final int WIN_POINTS = 18;
     //This is kept in case a change is make to the scoring structure
-    private static final int RP1_POINTS = 0; //Climb RP
-    private static final int RP2_POINTS = 0; //Rocket RP
+    private static final int RP1_POINTS = 0; //Balance RP
+    private static final int RP2_POINTS = 0; //Wheel/Balls Scored RP
 
     //https://github.com/squirlemaster42/Fantasy-FRC/blob/master/Back%20End/FantasyFRCBackend/src/com/onion/scoring/Scorer.java
     static void scoreMatch(Match match) {
@@ -101,10 +101,10 @@ public class EinsteinRRScorer implements Runnable{
             //There is a tie
             score += 1;
         }
-        if (results.isHabDockingRankingPoint()) {
+        if (results.getShieldOperationalRankingPoint()) {
             score += RP1_POINTS;
         }
-        if (results.isCompleteRocketRankingPoint()) {
+        if (results.getShieldEnergizedRankingPoint()) {
             score += RP2_POINTS;
         }
         return score;

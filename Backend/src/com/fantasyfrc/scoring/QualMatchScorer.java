@@ -101,11 +101,10 @@ public class QualMatchScorer implements Runnable{
         }
     }
 
-
     //TODO Update comments for 2020
     private static final int WIN_POINTS = 3;
-    private static final int RP1_POINTS = 1; //Climb RP
-    private static final int RP2_POINTS = 2; //Rocket RP
+    private static final int RP1_POINTS = 1; //Balance RP
+    private static final int RP2_POINTS = 2; //Wheel/Balls Scored RP
 
     //https://github.com/squirlemaster42/Fantasy-FRC/blob/master/Back%20End/FantasyFRCBackend/src/com/onion/scoring/Scorer.java
     static boolean scoreMatch(Match match) {
@@ -135,10 +134,10 @@ public class QualMatchScorer implements Runnable{
             //There is a tie
             score += 1;
         }
-        if (results.isHabDockingRankingPoint()) {
+        if (results.getShieldOperationalRankingPoint()) {
             score += RP1_POINTS;
         }
-        if (results.isCompleteRocketRankingPoint()) {
+        if (results.getShieldEnergizedRankingPoint()) {
             score += RP2_POINTS;
         }
         return score;

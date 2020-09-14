@@ -81,7 +81,6 @@ public class DraftDatabaseManager {
         }
     }
 
-    //TODO Test
     boolean draftExists(final String id){
         try {
             Statement statement = Objects.requireNonNull(DraftDatabaseManager.getInstance().getCon()).createStatement();
