@@ -1,5 +1,7 @@
-//TODO Give proper credit
-//https://github.com/defuse/password-hashing
+/*
+ * Credit to defuse on GitHub
+ * https://github.com/defuse/password-hashing
+ */
 
 package com.fantasyfrc.utils;
 
