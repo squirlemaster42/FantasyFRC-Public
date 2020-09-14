@@ -17,7 +17,7 @@ public class Constants {
     //Basic Constants
     public static final int DRAFT_SIZE = 8;
     public static final int SERVER_PORT = 0;
-    private static final int year = 2019; //TODO update for 2020
+    private static final int year = 2020;
 
     private static Constants instance;
 
