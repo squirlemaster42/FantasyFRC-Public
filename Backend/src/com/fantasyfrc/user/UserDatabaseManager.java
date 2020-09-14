@@ -9,7 +9,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Objects;
 
-//TODO Refactor this
 public class UserDatabaseManager {
 
     private static UserDatabaseManager instance;
@@ -130,7 +129,21 @@ public class UserDatabaseManager {
 
     public void writeUser(final String username, final String password){
         try {
-            new SQLWriteObject(username, password).writeObject(Objects.requireNonNull(getCon()).createStatement());
+            String sqlString = "INSERT INTO users(username, password) values('" + username + "', '" + password + "')";
+
+            Statement statement = Objects.requireNonNull(getCon()).createStatement();
+
+            try {
+                statement.executeUpdate(sqlString);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }finally {
+                try {
+                    statement.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -138,22 +151,10 @@ public class UserDatabaseManager {
 
     public String readUser(final String username){
         try {
-            return new SQLReadObject(username).readObject(Objects.requireNonNull(getCon()).createStatement());
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return "";
-        }
-    }
+            String sqlString = "SELECT password from users WHERE username = '" + username + "'";
 
-    private static class SQLReadObject{
+            Statement statement = Objects.requireNonNull(getCon()).createStatement();
 
-        private final String sqlString;
-
-        SQLReadObject(final String username){
-            sqlString = "SELECT password from users WHERE username = '" + username + "'";
-        }
-
-        String readObject(final Statement statement){
             try {
                 ResultSet result = statement.executeQuery(sqlString);
                 if(result.first()){
@@ -170,30 +171,9 @@ public class UserDatabaseManager {
                     e.printStackTrace();
                 }
             }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return "";
         }
     }
-
-    private static class SQLWriteObject{
-
-        private final String sqlString;
-
-        SQLWriteObject(final String username, final String password){
-            sqlString = "INSERT INTO users(username, password) values('" + username + "', '" + password + "')";
-        }
-
-        void writeObject(final Statement statement){
-            try {
-                statement.executeUpdate(sqlString);
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }finally {
-                try {
-                    statement.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-    }
-
 }
