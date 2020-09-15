@@ -27,6 +27,7 @@ public class Parser {
         return outputList;
     }
 
+    //TODO need to figure out how to handle events that have not occurred yet
     public static Match[] parseEvent(final String jsonStr){
         return Constants.getInstance().getGson().fromJson(jsonStr, Match[].class);
     }

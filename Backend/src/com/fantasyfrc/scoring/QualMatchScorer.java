@@ -33,7 +33,7 @@ import java.util.Queue;
 
 public class QualMatchScorer extends Scorer{
 
-    private static final int WIN_POINTS = 2;
+    private static final int WIN_POINTS = 3;
     private static final int RP1_POINTS = 1; //Balance RP
     private static final int RP2_POINTS = 2; //Wheel/Balls Scored RP
 
