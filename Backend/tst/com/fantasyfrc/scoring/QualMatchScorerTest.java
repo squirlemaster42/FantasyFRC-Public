@@ -18,8 +18,8 @@ public class QualMatchScorerTest {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        QualMatchScorer.getInstance().scoreMatch(EventMap.getInstance().getMatchFromEvent("2020txpla_qm1"));
-        QualMatchScorer.getInstance().scoreMatch(EventMap.getInstance().getMatchFromEvent("2020txpla_qm30"));
+        QualMatchScorer.scoreMatch(EventMap.getInstance().getMatchFromEvent("2020txpla_qm1"));
+        QualMatchScorer.scoreMatch(EventMap.getInstance().getMatchFromEvent("2020txpla_qm30"));
         assertEquals(0, EventMap.getInstance().getMatchFromEvent("2020txpla_qm1").getBlueScore());
         assertEquals(3, EventMap.getInstance().getMatchFromEvent("2020txpla_qm1").getRedScore());
         assertEquals(0, EventMap.getInstance().getMatchFromEvent("2020txpla_qm30").getBlueScore());
