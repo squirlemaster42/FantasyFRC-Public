@@ -73,7 +73,7 @@ public class EinsteinRRScorer implements Runnable{
     private static final int RP2_POINTS = 0; //Wheel/Balls Scored RP
 
     //https://github.com/squirlemaster42/Fantasy-FRC/blob/master/Back%20End/FantasyFRCBackend/src/com/onion/scoring/Scorer.java
-    static void scoreMatch(Match match) {
+    static boolean scoreMatch(Match match) {
         //TODO Check if match is already scored
         int redScore = scoreRR(match, Alliance.RED);
         int blueScore = scoreRR(match, Alliance.BLUE);
@@ -84,6 +84,7 @@ public class EinsteinRRScorer implements Runnable{
         match.setScored(redScore > 0 || blueScore > 0); //This will work because at least one team will get a ranking point because at least one team has to win or there is a tie
 
         QualMatchDatabaseManager.getInstance().updateScore(match.getKey(), redScore, blueScore);
+        return redScore != 0 || blueScore != 0;
     }
 
     private static int scoreRR(Match match, Alliance a){
