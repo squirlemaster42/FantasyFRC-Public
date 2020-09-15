@@ -17,6 +17,7 @@ public class Constants {
     //Basic Constants
     public static final int DRAFT_SIZE = 8;
     public static final int SERVER_PORT = 0;
+    public static final int WAIT_TIME = 300000;
     private static final int year = 2020;
 
     private static Constants instance;
