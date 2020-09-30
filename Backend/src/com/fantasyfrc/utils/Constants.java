@@ -17,7 +17,8 @@ public class Constants {
     //Basic Constants
     public static final int DRAFT_SIZE = 8;
     public static final int SERVER_PORT = 0;
-    private static final int year = 2019; //TODO update for 2020
+    public static final int WAIT_TIME = 300000;
+    private static final int year = 2020;
 
     private static Constants instance;
 
@@ -44,18 +45,19 @@ public class Constants {
     private Constants() {
         //Adds event strings to champ event list
         this.champGameStrings = new ArrayList<>();
-        champGameStrings.add(year + "carv");
-        champGameStrings.add(year + "gal");
-        champGameStrings.add(year + "hop");
-        champGameStrings.add(year + "new");
-        champGameStrings.add(year + "roe");
-        champGameStrings.add(year + "tur");
-        champGameStrings.add(year + "arc");
-        champGameStrings.add(year + "cars");
-        champGameStrings.add(year + "cur");
-        champGameStrings.add(year + "dal");
-        champGameStrings.add(year + "dar");
-        champGameStrings.add(year + "tes");
+        //TODO Need to re-add when events actually occur
+//        champGameStrings.add(year + "carv");
+//        champGameStrings.add(year + "gal");
+//        champGameStrings.add(year + "hop");
+//        champGameStrings.add(year + "new");
+//        champGameStrings.add(year + "roe");
+//        champGameStrings.add(year + "tur");
+//        champGameStrings.add(year + "arc");
+//        champGameStrings.add(year + "cars");
+//        champGameStrings.add(year + "cur");
+//        champGameStrings.add(year + "dal");
+//        champGameStrings.add(year + "dar");
+//        champGameStrings.add(year + "tes");
 
         this.gson = new Gson();
         this.client = new OkHttpClient();

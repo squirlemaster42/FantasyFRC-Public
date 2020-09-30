@@ -2,269 +2,276 @@ package com.fantasyfrc.scoring.utils.jsonobjects.match;
 
 public class ScoreBreakdown {
 
-    int adjustPoints;
-    int autoPoints;
-    String bay1;
-    String bay2;
-    String bay3;
-    String bay4;
-    String bay5;
-    String bay6;
-    String bay7;
-    String bay8;
-    int cargoPoints;
-    boolean completeRocketRankingPoint;
-    boolean completedRocketFar;
-    boolean completedRocketNear;
-    String endgameRobot1;
-    String endgameRobot2;
-    String endgameRobot3;
-    int foulCount;
-    int foulPoints;
-    int habClimbPoints;
-    boolean habDockingRankingPoint;
-    String habLineRobot1;
-    String habLineRobot2;
-    String habLineRobot3;
-    int hatchPanelPoints;
-    String lowLeftRocketFar;
-    String lowLeftRocketNear;
-    String lowRightRocketNear;
-    String lowRightRocketFar;
-    String midLeftRocketFar;
-    String midLeftRocketNear;
-    String midRightRocketFar;
-    String midRightRocketNear;
-    String topLeftRocketFar;
-    String topLeftRocketNear;
-    String topRightRocketFar;
-    String topRightRocketNear;
-    String preMatchBay1;
-    String preMatchBay2;
-    String preMatchBay3;
-    String preMatchBay4;
-    String preMatchBay5;
-    String preMatchBay6;
-    String preMatchBay7;
-    String preMatchBay8;
-    String preMatchLevelRobot1;
-    String preMatchLevelRobot2;
-    String preMatchLevelRobot3;
-    int rp;
-    int sandStormBonusPoints;
-    int techFoulCount;
-    int teleopPoints;
-    int totalPoints;
+    private int adjustPoints;
 
-    public int getAdjustPoints() {
-        return adjustPoints;
+    private int autoCellPoints;
+
+    private int autoCellsBottom;
+
+    private int autoCellsInner;
+
+    private int autoCellsOuter;
+
+    private int autoInitLinePoints;
+
+    private int autoPoints;
+
+    private int controlPanelPoints;
+
+    private int endgamePoints;
+
+    private String endgameRobot1;
+
+    private String endgameRobot2;
+
+    private String endgameRobot3;
+
+    private String endgameRungIsLevel;
+
+    private int foulCount;
+
+    private int foulPoints;
+
+    private String initLineRobot1;
+
+    private String initLineRobot2;
+
+    private String initLineRobot3;
+
+    private int rp;
+
+    private boolean shieldEnergizedRankingPoint;
+
+    private boolean shieldOperationalRankingPoint;
+
+    private boolean stage1Activated;
+
+    private boolean stage2Activated;
+
+    private boolean stage3Activated;
+
+    private String stage3TargetColor;
+
+    private int tba_numRobotsHanging;
+
+    private boolean tba_shieldEnergizedRankingPointFromFoul;
+
+    private int techFoulCount;
+
+    private int teleopCellPoints;
+
+    private int teleopCellsBottom;
+
+    private int teleopCellsInner;
+
+    private int teleopCellsOuter;
+
+    private int teleopPoints;
+
+    private int totalPoints;
+
+    public void setAdjustPoints(int adjustPoints){
+        this.adjustPoints = adjustPoints;
     }
-
-    public int getAutoPoints() {
-        return autoPoints;
+    public int getAdjustPoints(){
+        return this.adjustPoints;
     }
-
-    public String getBay1() {
-        return bay1;
+    public void setAutoCellPoints(int autoCellPoints){
+        this.autoCellPoints = autoCellPoints;
     }
-
-    public String getBay2() {
-        return bay2;
+    public int getAutoCellPoints(){
+        return this.autoCellPoints;
     }
-
-    public String getBay3() {
-        return bay3;
+    public void setAutoCellsBottom(int autoCellsBottom){
+        this.autoCellsBottom = autoCellsBottom;
     }
-
-    public String getBay4() {
-        return bay4;
+    public int getAutoCellsBottom(){
+        return this.autoCellsBottom;
     }
-
-    public String getBay5() {
-        return bay5;
+    public void setAutoCellsInner(int autoCellsInner){
+        this.autoCellsInner = autoCellsInner;
     }
-
-    public String getBay6() {
-        return bay6;
+    public int getAutoCellsInner(){
+        return this.autoCellsInner;
     }
-
-    public String getBay7() {
-        return bay7;
+    public void setAutoCellsOuter(int autoCellsOuter){
+        this.autoCellsOuter = autoCellsOuter;
     }
-
-    public String getBay8() {
-        return bay8;
+    public int getAutoCellsOuter(){
+        return this.autoCellsOuter;
     }
-
-    public int getCargoPoints() {
-        return cargoPoints;
+    public void setAutoInitLinePoints(int autoInitLinePoints){
+        this.autoInitLinePoints = autoInitLinePoints;
     }
-
-    public boolean isCompleteRocketRankingPoint() {
-        return completeRocketRankingPoint;
+    public int getAutoInitLinePoints(){
+        return this.autoInitLinePoints;
     }
-
-    public boolean isCompletedRocketFar() {
-        return completedRocketFar;
+    public void setAutoPoints(int autoPoints){
+        this.autoPoints = autoPoints;
     }
-
-    public boolean isCompletedRocketNear() {
-        return completedRocketNear;
+    public int getAutoPoints(){
+        return this.autoPoints;
     }
-
-    public String getEndgameRobot1() {
-        return endgameRobot1;
+    public void setControlPanelPoints(int controlPanelPoints){
+        this.controlPanelPoints = controlPanelPoints;
     }
-
-    public String getEndgameRobot2() {
-        return endgameRobot2;
+    public int getControlPanelPoints(){
+        return this.controlPanelPoints;
     }
-
-    public String getEndgameRobot3() {
-        return endgameRobot3;
+    public void setEndgamePoints(int endgamePoints){
+        this.endgamePoints = endgamePoints;
     }
-
-    public int getFoulCount() {
-        return foulCount;
+    public int getEndgamePoints(){
+        return this.endgamePoints;
     }
-
-    public int getFoulPoints() {
-        return foulPoints;
+    public void setEndgameRobot1(String endgameRobot1){
+        this.endgameRobot1 = endgameRobot1;
     }
-
-    public int getHabClimbPoints() {
-        return habClimbPoints;
+    public String getEndgameRobot1(){
+        return this.endgameRobot1;
     }
-
-    public boolean isHabDockingRankingPoint() {
-        return habDockingRankingPoint;
+    public void setEndgameRobot2(String endgameRobot2){
+        this.endgameRobot2 = endgameRobot2;
     }
-
-    public String getHabLineRobot1() {
-        return habLineRobot1;
+    public String getEndgameRobot2(){
+        return this.endgameRobot2;
     }
-
-    public String getHabLineRobot2() {
-        return habLineRobot2;
+    public void setEndgameRobot3(String endgameRobot3){
+        this.endgameRobot3 = endgameRobot3;
     }
-
-    public String getHabLineRobot3() {
-        return habLineRobot3;
+    public String getEndgameRobot3(){
+        return this.endgameRobot3;
     }
-
-    public int getHatchPanelPoints() {
-        return hatchPanelPoints;
+    public void setEndgameRungIsLevel(String endgameRungIsLevel){
+        this.endgameRungIsLevel = endgameRungIsLevel;
     }
-
-    public String getLowLeftRocketFar() {
-        return lowLeftRocketFar;
+    public String getEndgameRungIsLevel(){
+        return this.endgameRungIsLevel;
     }
-
-    public String getLowLeftRocketNear() {
-        return lowLeftRocketNear;
+    public void setFoulCount(int foulCount){
+        this.foulCount = foulCount;
     }
-
-    public String getLowRightRocketNear() {
-        return lowRightRocketNear;
+    public int getFoulCount(){
+        return this.foulCount;
     }
-
-    public String getLowRightRocketFar() {
-        return lowRightRocketFar;
+    public void setFoulPoints(int foulPoints){
+        this.foulPoints = foulPoints;
     }
-
-    public String getMidLeftRocketFar() {
-        return midLeftRocketFar;
+    public int getFoulPoints(){
+        return this.foulPoints;
     }
-
-    public String getMidLeftRocketNear() {
-        return midLeftRocketNear;
+    public void setInitLineRobot1(String initLineRobot1){
+        this.initLineRobot1 = initLineRobot1;
     }
-
-    public String getMidRightRocketFar() {
-        return midRightRocketFar;
+    public String getInitLineRobot1(){
+        return this.initLineRobot1;
     }
-
-    public String getMidRightRocketNear() {
-        return midRightRocketNear;
+    public void setInitLineRobot2(String initLineRobot2){
+        this.initLineRobot2 = initLineRobot2;
     }
-
-    public String getTopLeftRocketFar() {
-        return topLeftRocketFar;
+    public String getInitLineRobot2(){
+        return this.initLineRobot2;
     }
-
-    public String getTopLeftRocketNear() {
-        return topLeftRocketNear;
+    public void setInitLineRobot3(String initLineRobot3){
+        this.initLineRobot3 = initLineRobot3;
     }
-
-    public String getTopRightRocketFar() {
-        return topRightRocketFar;
+    public String getInitLineRobot3(){
+        return this.initLineRobot3;
     }
-
-    public String getTopRightRocketNear() {
-        return topRightRocketNear;
+    public void setRp(int rp){
+        this.rp = rp;
     }
-
-    public String getPreMatchBay1() {
-        return preMatchBay1;
+    public int getRp(){
+        return this.rp;
     }
-
-    public String getPreMatchBay2() {
-        return preMatchBay2;
+    public void setShieldEnergizedRankingPoint(boolean shieldEnergizedRankingPoint){
+        this.shieldEnergizedRankingPoint = shieldEnergizedRankingPoint;
     }
-
-    public String getPreMatchBay3() {
-        return preMatchBay3;
+    public boolean getShieldEnergizedRankingPoint(){
+        return this.shieldEnergizedRankingPoint;
     }
-
-    public String getPreMatchBay4() {
-        return preMatchBay4;
+    public void setShieldOperationalRankingPoint(boolean shieldOperationalRankingPoint){
+        this.shieldOperationalRankingPoint = shieldOperationalRankingPoint;
     }
-
-    public String getPreMatchBay5() {
-        return preMatchBay5;
+    public boolean getShieldOperationalRankingPoint(){
+        return this.shieldOperationalRankingPoint;
     }
-
-    public String getPreMatchBay6() {
-        return preMatchBay6;
+    public void setStage1Activated(boolean stage1Activated){
+        this.stage1Activated = stage1Activated;
     }
-
-    public String getPreMatchBay7() {
-        return preMatchBay7;
+    public boolean getStage1Activated(){
+        return this.stage1Activated;
     }
-
-    public String getPreMatchBay8() {
-        return preMatchBay8;
+    public void setStage2Activated(boolean stage2Activated){
+        this.stage2Activated = stage2Activated;
     }
-
-    public String getPreMatchLevelRobot1() {
-        return preMatchLevelRobot1;
+    public boolean getStage2Activated(){
+        return this.stage2Activated;
     }
-
-    public String getPreMatchLevelRobot2() {
-        return preMatchLevelRobot2;
+    public void setStage3Activated(boolean stage3Activated){
+        this.stage3Activated = stage3Activated;
     }
-
-    public String getPreMatchLevelRobot3() {
-        return preMatchLevelRobot3;
+    public boolean getStage3Activated(){
+        return this.stage3Activated;
     }
-
-    public int getRp() {
-        return rp;
+    public void setStage3TargetColor(String stage3TargetColor){
+        this.stage3TargetColor = stage3TargetColor;
     }
-
-    public int getSandStormBonusPoints() {
-        return sandStormBonusPoints;
+    public String getStage3TargetColor(){
+        return this.stage3TargetColor;
     }
-
-    public int getTechFoulCount() {
-        return techFoulCount;
+    public void setTba_numRobotsHanging(int tba_numRobotsHanging){
+        this.tba_numRobotsHanging = tba_numRobotsHanging;
     }
-
-    public int getTeleopPoints() {
-        return teleopPoints;
+    public int getTba_numRobotsHanging(){
+        return this.tba_numRobotsHanging;
     }
-
-    public int getTotalPoints() {
-        return totalPoints;
+    public void setTba_shieldEnergizedRankingPointFromFoul(boolean tba_shieldEnergizedRankingPointFromFoul){
+        this.tba_shieldEnergizedRankingPointFromFoul = tba_shieldEnergizedRankingPointFromFoul;
+    }
+    public boolean getTba_shieldEnergizedRankingPointFromFoul(){
+        return this.tba_shieldEnergizedRankingPointFromFoul;
+    }
+    public void setTechFoulCount(int techFoulCount){
+        this.techFoulCount = techFoulCount;
+    }
+    public int getTechFoulCount(){
+        return this.techFoulCount;
+    }
+    public void setTeleopCellPoints(int teleopCellPoints){
+        this.teleopCellPoints = teleopCellPoints;
+    }
+    public int getTeleopCellPoints(){
+        return this.teleopCellPoints;
+    }
+    public void setTeleopCellsBottom(int teleopCellsBottom){
+        this.teleopCellsBottom = teleopCellsBottom;
+    }
+    public int getTeleopCellsBottom(){
+        return this.teleopCellsBottom;
+    }
+    public void setTeleopCellsInner(int teleopCellsInner){
+        this.teleopCellsInner = teleopCellsInner;
+    }
+    public int getTeleopCellsInner(){
+        return this.teleopCellsInner;
+    }
+    public void setTeleopCellsOuter(int teleopCellsOuter){
+        this.teleopCellsOuter = teleopCellsOuter;
+    }
+    public int getTeleopCellsOuter(){
+        return this.teleopCellsOuter;
+    }
+    public void setTeleopPoints(int teleopPoints){
+        this.teleopPoints = teleopPoints;
+    }
+    public int getTeleopPoints(){
+        return this.teleopPoints;
+    }
+    public void setTotalPoints(int totalPoints){
+        this.totalPoints = totalPoints;
+    }
+    public int getTotalPoints(){
+        return this.totalPoints;
     }
 }

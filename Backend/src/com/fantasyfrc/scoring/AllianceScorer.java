@@ -1,11 +1,12 @@
 package com.fantasyfrc.scoring;
 
 import com.fantasyfrc.scoring.utils.jsonobjects.alliances.Alliance;
+import com.fantasyfrc.scoring.utils.jsonobjects.match.Match;
 
 import java.util.Queue;
 import java.util.concurrent.PriorityBlockingQueue;
 
-public class AllianceScorer implements Runnable{
+public class AllianceScorer extends Scorer{
 
     public static AllianceScorer instance;
 
@@ -22,6 +23,7 @@ public class AllianceScorer implements Runnable{
     private boolean running = false;
 
     private AllianceScorer(){
+        super(null);
         toScore = new PriorityBlockingQueue<>();
     }
 
@@ -34,14 +36,25 @@ public class AllianceScorer implements Runnable{
             Alliance currScoring = toScore.poll();
 
             //Get Score
-            int score = scoreAlliance(currScoring);
+            int score = scoreAlliance(null, currScoring);
 
             //Add to database
             PlayoffDatabaseManager.getInstance().updateScore(new PlayoffDatabaseManager.AllianceScore(currScoring.getPicks(), score), currScoring.getEventStr());
         }
     }
 
-    int scoreAlliance(Alliance alliance){
+    boolean scoreMatch(Match match){
+        //Score match will not be used for alliances
+        return false;
+    }
+
+    //TODO Figure out how to remove this
+    @Override
+    int scoreAlliance(Match match, com.fantasyfrc.scoring.Alliance alliance) {
+        return 0;
+    }
+
+    int scoreAlliance(Match m, Alliance alliance){
         /*
          *  Quarter-finalist - 6 Points
          *  Semi-finalist - 12 Points

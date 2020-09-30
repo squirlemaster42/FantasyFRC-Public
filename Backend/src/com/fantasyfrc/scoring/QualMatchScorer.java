@@ -2,6 +2,8 @@ package com.fantasyfrc.scoring;
 
 import com.fantasyfrc.scoring.utils.jsonobjects.match.Match;
 import com.fantasyfrc.scoring.utils.jsonobjects.match.ScoreBreakdown;
+import com.fantasyfrc.utils.Constants;
+
 import java.util.PriorityQueue;
 import java.util.Queue;
 
@@ -29,7 +31,11 @@ import java.util.Queue;
 //Match scorer will score only qual matches
 //Team scorer will score everything else since that it more team specific and is not score base on the individual match
 
-public class QualMatchScorer implements Runnable{
+public class QualMatchScorer extends Scorer{
+
+    private static final int WIN_POINTS = 3;
+    private static final int RP1_POINTS = 1; //Balance RP
+    private static final int RP2_POINTS = 2; //Wheel/Balls Scored RP
 
     private static QualMatchScorer instance;
 
@@ -46,7 +52,8 @@ public class QualMatchScorer implements Runnable{
     private boolean running = false;
 
     private QualMatchScorer(){
-        toScoreQueue = new PriorityQueue<>(); //TODO Figure out how to assign priority to match
+        super(new ScoreTemplate(WIN_POINTS, RP1_POINTS, RP2_POINTS));
+        toScoreQueue = new PriorityQueue<>();
     }
 
     public void addMatchToScore(final Match m){
@@ -61,17 +68,25 @@ public class QualMatchScorer implements Runnable{
     public void run() {
         while(running){
             //Score next team from queue
-            Match toScore = toScoreQueue.poll();
+            Match toScore = toScoreQueue.peek();
             if(toScore == null){
                 //There are no matches to score
                 return;
+            }else{
+                if(scoreMatch(toScore)){
+                    toScoreQueue.poll();
+                }else{
+                    //Wait a period of time
+                    try {
+                        thread.wait(Constants.WAIT_TIME);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
-
-            scoreMatch(toScore);
         }
     }
 
-    //TODO try to make less accessible, protected/default/private
     public synchronized void start(){
         if(running){
             return;
@@ -93,46 +108,8 @@ public class QualMatchScorer implements Runnable{
         }
     }
 
-
-    //TODO Update comments for 2020
-    private static final int WIN_POINTS = 3;
-    private static final int RP1_POINTS = 1; //Climb RP
-    private static final int RP2_POINTS = 2; //Rocket RP
-
-    //https://github.com/squirlemaster42/Fantasy-FRC/blob/master/Back%20End/FantasyFRCBackend/src/com/onion/scoring/Scorer.java
-    static void scoreMatch(Match match) {
-        //TODO Check if match is already scored
-        int redScore = scoreQual(match, Alliance.RED);
-        int blueScore = scoreQual(match, Alliance.BLUE);
-
-        match.setRedScore(redScore);
-        match.setBlueScore(blueScore);
-        //TODO Account for replays
-        match.setScored(redScore > 0 || blueScore > 0); //This will work because at least one team will get a ranking point because at least one team has to win or there is a tie
-
-        QualMatchDatabaseManager.getInstance().updateScore(match.getKey(), redScore, blueScore);
-    }
-
-    private static int scoreQual(Match match, Alliance a){
-        //TODO Update for 2020
-        int score = 0;
-
-        String alliance = a == Alliance.RED ? "red" : "blue";
-
-        ScoreBreakdown results = match.getScore_breakdown().get(alliance);
-        if (match.getWinning_alliance().equals(alliance)) {
-            score += WIN_POINTS;
-        }else if(match.getWinning_alliance().equals("")){
-            //There is a tie
-            score += 1;
-        }
-        if (results.isHabDockingRankingPoint()) {
-            score += RP1_POINTS;
-        }
-        if (results.isCompleteRocketRankingPoint()) {
-            score += RP2_POINTS;
-        }
-        return score;
+    int scoreAlliance(Match match, Alliance a){
+        return super.scoreWithTemplate(match, a);
     }
 
 }
