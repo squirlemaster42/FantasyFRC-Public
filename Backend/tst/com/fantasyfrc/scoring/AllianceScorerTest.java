@@ -20,13 +20,13 @@ public class AllianceScorerTest {
             e.printStackTrace();
         }
         Alliance[] alliances = Parser.getAlliances("2019tur", reqStr);
-        assertEquals(24, AllianceScorer.getInstance().scoreAlliance(alliances[0]));
-        assertEquals(6, AllianceScorer.getInstance().scoreAlliance(alliances[1]));
-        assertEquals(6, AllianceScorer.getInstance().scoreAlliance(alliances[2]));
-        assertEquals(6, AllianceScorer.getInstance().scoreAlliance(alliances[3]));
-        assertEquals(12, AllianceScorer.getInstance().scoreAlliance(alliances[4]));
-        assertEquals(18, AllianceScorer.getInstance().scoreAlliance(alliances[5]));
-        assertEquals(12, AllianceScorer.getInstance().scoreAlliance(alliances[6]));
-        assertEquals(6, AllianceScorer.getInstance().scoreAlliance(alliances[7]));
+        assertEquals(24, AllianceScorer.getInstance().scoreAlliance(null, alliances[0]));
+        assertEquals(6, AllianceScorer.getInstance().scoreAlliance(null, alliances[1]));
+        assertEquals(6, AllianceScorer.getInstance().scoreAlliance(null, alliances[2]));
+        assertEquals(6, AllianceScorer.getInstance().scoreAlliance(null, alliances[3]));
+        assertEquals(12, AllianceScorer.getInstance().scoreAlliance(null, alliances[4]));
+        assertEquals(18, AllianceScorer.getInstance().scoreAlliance(null, alliances[5]));
+        assertEquals(12, AllianceScorer.getInstance().scoreAlliance(null, alliances[6]));
+        assertEquals(6, AllianceScorer.getInstance().scoreAlliance(null, alliances[7]));
     }
 }
